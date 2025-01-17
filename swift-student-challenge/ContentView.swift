@@ -99,7 +99,7 @@ struct PatternInputView: View {
                 }
                 .animation(.easeInOut(duration: 0.4), value: points)
             }
-            .shakeEffect(trigger: displayError, distance: 20)
+            .shakeEffect(trigger: displayError, distance: 10) // default 20
             .onAppear {
                 if isReadOnly {
                     // Pre-fill the activePattern with the required pattern
@@ -144,7 +144,10 @@ struct PatternInputView: View {
             DragGesture(minimumDistance: 0)
                 .onChanged { gesture in
                     let location = gesture.location
-                    if let dot = availableDots.first(where: { $0.dotFrame.contains(location) }), !activePattern.contains(where: { $0.id == dot.id }) {
+                    if let dot = availableDots.first(where: { dot in
+                        let center = CGPoint(x: dot.dotFrame.midX, y: dot.dotFrame.midY)
+                        return distance(from: location, to: center) < 15 // Adjust hit radius for precision
+                    }), !activePattern.contains(where: { $0.id == dot.id }) {
                         activePattern.append(dot)
                     }
                     currentDragLocation = location
@@ -187,6 +190,10 @@ struct PatternInputView: View {
         var dotFrame: CGRect = .zero // the frame of the dot for detecting touches
     }
     
+    private func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
+        sqrt(pow(point1.x - point2.x, 2) + pow(point1.y - point2.y, 2))
+    }
+
     // DotFrameKey: A preference key to store each dot's frame
     private struct DotFrameKey: PreferenceKey {
         static var defaultValue: CGRect = .zero
@@ -225,19 +232,31 @@ enum PatternSymbol: Int {
 extension View {
     // Custom shake effect for wrong patterns
     func shakeEffect(trigger: Bool, distance: CGFloat) -> some View {
-        return self.modifier(ShakeEffect(trigger: trigger, distance: distance))
+        modifier(ShakeEffect(trigger: trigger, distance: distance))
     }
 }
 
-/// will be deprecated
-struct ShakeEffect: AnimatableModifier {
+struct ShakeEffect: ViewModifier, Animatable {
     var trigger: Bool
     var distance: CGFloat
-    var animatableData: CGFloat = 0
+    var animatableData: CGFloat
+
     func body(content: Content) -> some View {
         content
-            .offset(x: sin(animatableData * .pi * 2) * distance)
-            .animation(trigger ? Animation.easeInOut(duration: 0.2).repeatCount(3) : nil)
+            .offset(x: trigger ? sin(animatableData * .pi * 2) * distance : 0)
+    }
+
+    init(trigger: Bool, distance: CGFloat) {
+        self.trigger = trigger
+        self.distance = distance
+        self.animatableData = trigger ? 1 : 0
+    }
+}
+
+extension View {
+    func shake(trigger: Bool, distance: CGFloat = 5) -> some View {
+        self.modifier(ShakeEffect(trigger: trigger, distance: distance))
+            .animation(.default.repeatCount(3, autoreverses: true), value: trigger)
     }
 }
 
