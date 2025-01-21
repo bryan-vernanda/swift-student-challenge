@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CardSpinView: View {
     let patternData: PatternData
+    let time: CGFloat
+    var onComplete: (() -> Void)?
     
     @State private var isFlipped: Bool = false
     @State private var isAnimated: Bool = false
@@ -39,14 +41,18 @@ struct CardSpinView: View {
             isFlipped.toggle()
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
             withAnimation(.easeIn) {
                 isFlipped.toggle()
             }
+            onComplete?()
         }
     }
 }
 
 #Preview {
-    CardSpinView(patternData: PatternData(path: [.three, .two, .four, .eight, .nine]))
+    CardSpinView(
+        patternData: PatternData(path: [.three, .two, .four, .eight, .nine]),
+        time: 4.0
+    )
 }
