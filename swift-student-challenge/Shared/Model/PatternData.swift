@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PatternData: Identifiable {
+struct PatternData: Identifiable, Hashable {
     let id: UUID = UUID()
     var path: [PatternSymbol]
     var isUnlocked: Bool = false
