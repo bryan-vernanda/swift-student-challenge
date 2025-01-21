@@ -112,8 +112,9 @@ class CardPlayViewModel: ObservableObject {
         ]
         
         var patterns: [PatternData] = []
-        
-        for _ in 0..<numberOfPattern {
+        var generatedPaths: Set<[PatternSymbol]> = []
+
+        while patterns.count < numberOfPattern {
             var currentPattern: [PatternSymbol] = []
             var currentSymbol = allSymbols.randomElement()!
             currentPattern.append(currentSymbol)
@@ -126,8 +127,9 @@ class CardPlayViewModel: ObservableObject {
                 currentPattern.append(currentSymbol)
             }
             
-            if currentPattern.count == numberOfLines {
+            if currentPattern.count == numberOfLines && !generatedPaths.contains(currentPattern) {
                 patterns.append(PatternData(path: currentPattern))
+                generatedPaths.insert(currentPattern)
             }
         }
         
