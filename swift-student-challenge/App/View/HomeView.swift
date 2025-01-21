@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 13/01/25.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
 //    @State private var patternData: [PatternData] = [
 //        PatternData(path: [.three, .two, .four, .eight, .nine]),
 //        PatternData(path: [.two, .three, .five, .nine, .eight]),
 //        PatternData(path: [.three, .six, .nine, .eight, .seven])
 //    ]
-    private var levelModel = Level()
-    @State private var isNavigate: Bool = false
+    
+    @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
         NavigationStack {
@@ -23,9 +23,9 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    if levelModel.level == 0 {
+                    if viewModel.level == 0 {
                         Button(action: {
-                            isNavigate = true
+                            viewModel.isNavigate = true
                         }) {
                             Text("Play")
                                 .font(.headline)
@@ -36,8 +36,8 @@ struct ContentView: View {
                         }
                     } else {
                         Button(action: {
-                            isNavigate = true
-                            levelModel.resetLevel()
+                            viewModel.isNavigate = true
+                            viewModel.levelModel.resetLevel()
                         }) {
                             Text("New Game")
                                 .font(.headline)
@@ -48,7 +48,7 @@ struct ContentView: View {
                         }
                         
                         Button(action: {
-                            isNavigate = true
+                            viewModel.isNavigate = true
                         }) {
                             Text("Continue")
                                 .font(.headline)
@@ -60,7 +60,10 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $isNavigate) {
+            .onAppear {
+                viewModel.refreshLevel()
+            }
+            .navigationDestination(isPresented: $viewModel.isNavigate) {
                 CardPlayView()
             }
         }
@@ -101,7 +104,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }
 
 
