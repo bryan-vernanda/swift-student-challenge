@@ -42,7 +42,6 @@ class CardPlayViewModel: ObservableObject {
     func goToNextLevel() {
         level += 1
         levelModel.level = level
-        loadLevel()
     }
     
     private func adjustLevelTimeAndLines(levelingPattern: LevelingPattern, timeReduction: CGFloat, levelDivideBy: Int, maxNumberOfAddLines: Int) {

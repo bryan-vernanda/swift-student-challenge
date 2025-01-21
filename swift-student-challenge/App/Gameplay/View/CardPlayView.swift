@@ -85,6 +85,7 @@ struct CardPlayView: View {
                 } else {
                     Button(action: {
                         viewModel.goToNextLevel()
+                        viewModel.loadLevel()
                     }) {
                         Text("Next Level")
                             .font(.headline)
@@ -122,6 +123,10 @@ struct CardPlayView: View {
                             }
                         }),
                         OverlayButtonData(label: "Exit", action: {
+                            if viewModel.patterns.allSatisfy({ $0.isUnlocked }) {
+                                viewModel.goToNextLevel()
+                            }
+                            
                             dismiss()
                         })
                     ]
@@ -148,5 +153,5 @@ struct CardPlayView: View {
 }
 
 #Preview {
-    CardPlayView()
+    HomeView()
 }
