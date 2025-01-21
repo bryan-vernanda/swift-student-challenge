@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  CardPlayView.swift
 //  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 20/01/25.
@@ -38,7 +38,7 @@ struct CardPlayView: View {
                 CardCombinationView(patternData: viewModel.patterns, time: viewModel.time) {
                     viewModel.isAnimationRunning = false
                 }
-                .id("CardCombinationView-\(viewModel.level)")
+                .id(viewModel.cardViewID)
                 
                 if let index = viewModel.patterns.firstIndex(where: { !$0.isUnlocked }) {
                     PatternInputView(
