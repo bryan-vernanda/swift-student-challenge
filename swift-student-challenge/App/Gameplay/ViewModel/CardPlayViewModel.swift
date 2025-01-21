@@ -137,6 +137,7 @@ class CardPlayViewModel: ObservableObject {
     func loadLevel() {
         setupLevelingParameter()
         
+        isAnimationRunning = true
         cardViewID = UUID()
         patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: numberOfLines)
     }

@@ -20,7 +20,7 @@ struct Level {
         }
     }
     
-    func resetLevel(to defaultLevel: Int = 1) {
+    func resetLevel(to defaultLevel: Int = 0) {
         defaults.set(defaultLevel, forKey: levelKey)
     }
 }
