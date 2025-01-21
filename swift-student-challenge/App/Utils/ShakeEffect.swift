@@ -7,22 +7,20 @@
 
 import SwiftUI
 
-extension PatternInputView {
-    struct ShakeEffect: ViewModifier, Animatable {
-        var trigger: Bool
-        var distance: CGFloat
-        var animatableData: CGFloat
+struct ShakeEffect: ViewModifier, Animatable {
+    var trigger: Bool
+    var distance: CGFloat
+    var animatableData: CGFloat
 
-        func body(content: Content) -> some View {
-            content
-                .offset(x: trigger ? sin(animatableData * .pi * 2) * distance : 0)
-        }
+    func body(content: Content) -> some View {
+        content
+            .offset(x: trigger ? sin(animatableData * .pi * 2) * distance : 0)
+    }
 
-        init(trigger: Bool, distance: CGFloat) {
-            self.trigger = trigger
-            self.distance = distance
-            self.animatableData = trigger ? 1 : 0
-        }
+    init(trigger: Bool, distance: CGFloat) {
+        self.trigger = trigger
+        self.distance = distance
+        self.animatableData = trigger ? 1 : 0
     }
 }
 
