@@ -14,7 +14,6 @@ class CardPlayViewModel: ObservableObject {
     @Published var time: CGFloat
     @Published var isAnimationRunning: Bool
     @Published var isSettingOpen: Bool
-    @Published var isNavigate: Bool
     @Published var cardViewID: UUID
     @Published var patterns: [PatternData]
     
@@ -28,7 +27,6 @@ class CardPlayViewModel: ObservableObject {
         time = 0
         isAnimationRunning = true
         isSettingOpen = false
-        isNavigate = false
         cardViewID = UUID()
         patterns = []
     }
