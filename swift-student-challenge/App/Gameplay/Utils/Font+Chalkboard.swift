@@ -27,6 +27,7 @@ enum ChalkboardFontWeight {
 }
 
 enum ChalkboardFontSize {
+    case XXLTitle
     case XLTitle
     case largeTitle
     case title1
@@ -41,6 +42,8 @@ enum ChalkboardFontSize {
     
     var size: CGFloat {
         switch self {
+            case .XXLTitle:
+                52
             case .XLTitle:
                 48
             case .largeTitle:

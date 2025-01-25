@@ -13,49 +13,57 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black
+                Color(.boardBackground)
                     .ignoresSafeArea()
-                
+
                 VStack {
-                    if viewModel.level == 0 {
-                        Button(action: {
-                            viewModel.isNavigate = true
-                        }) {
-                            Text("Play")
-                                .font(.headline)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                    } else {
-                        Button(action: {
-                            viewModel.isNavigate = true
-                            viewModel.levelModel.resetLevel()
-                        }) {
-                            Text("New Game")
-                                .font(.headline)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {
-                            viewModel.isNavigate = true
-                        }) {
-                            Text("Continue")
-                                .font(.headline)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                    HStack {
+                        VStack {
+                            Text("PATTERN")
+                                .padding(.leading, -80)
+                            
+                            Text("MATCH")
+                                .padding(.leading, 130)
                         }
                     }
+                    .padding(.bottom)
+                    .font(.chalkboard(.XXLTitle))
+                    .rotationEffect(.degrees(-11.15))
+                    
+                    HStack {
+                        Image(systemName: "trophy.fill")
+                            .foregroundStyle(.trophyYellow)
+                        
+                        Text("Highest Level: ")
+                            
+                    }
+                    .font(.chalkboard(.title3))
+                }
+                .padding(.top, 40)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                
+                if viewModel.level == 0 {
+                    PlayButton(title: "PLAY") {
+                        viewModel.isNavigate = true
+                    }
+                } else {
+                    VStack {
+                        PlayButton(title: "NEW GAME") {
+                            viewModel.isNavigate = true
+                            viewModel.levelModel.resetLevel()
+                        }
+                        .padding(.bottom)
+                        
+                        PlayButton(title: "CONTINUE") {
+                            viewModel.isNavigate = true
+                        }
+                    }
+                    .padding(.top)
                 }
             }
+            .foregroundStyle(.chalkboard)
             .onAppear {
-                viewModel.refreshLevel()
+                viewModel.refreshView()
             }
             .navigationDestination(isPresented: $viewModel.isNavigate) {
                 CardPlayView()

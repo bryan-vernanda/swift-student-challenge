@@ -10,6 +10,7 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published var isNavigate: Bool
     @Published var level: Int
+    @Published var patterns: [PatternData]
     
     var levelModel: Level
     
@@ -17,9 +18,11 @@ class HomeViewModel: ObservableObject {
         levelModel = Level()
         isNavigate = false
         level = levelModel.level
+        patterns = []
     }
     
-    func refreshLevel() {
+    func refreshView() {
         level = levelModel.level
+        patterns = generatePatterns(numberOfPattern: 6, numberOfLines: 6)
     }
 }
