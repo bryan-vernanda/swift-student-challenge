@@ -8,12 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-//    @State private var patternData: [PatternData] = [
-//        PatternData(path: [.three, .two, .four, .eight, .nine]),
-//        PatternData(path: [.two, .three, .five, .nine, .eight]),
-//        PatternData(path: [.three, .six, .nine, .eight, .seven])
-//    ]
-    
     @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
@@ -67,39 +61,6 @@ struct HomeView: View {
                 CardPlayView()
             }
         }
-//        NavigationStack {
-//            CardPlayView() // main home when unlocked
-//        }
-//        .overlay {
-//            if let index = patternData.firstIndex(where: { !$0.isUnlocked }) {
-//                GeometryReader { _ in
-//                    Rectangle()
-//                        .fill(.black)
-//                        .ignoresSafeArea()
-//                    VStack(spacing: 20) {
-//                        Text("the pattern: \(index + 1)")
-//                            .font(.largeTitle)
-//                            .fontWidth(.condensed)
-//                            .foregroundStyle(.white)
-//                        Text("Draw the pattern to Unlock")
-//                            .font(.largeTitle)
-//                            .fontWidth(.condensed)
-//                            .foregroundStyle(.white)
-//                        PatternInputView(
-//                            requiredPattern: patternData[index].path
-//                        ) { status, pattern in
-//                            if status {
-//                                withAnimation(.spring(response: 0.45)) {
-//                                    patternData[index].isUnlocked = true
-//                                }
-//                            }
-//                        }
-//                    }
-//                    .frame(maxHeight: .infinity)
-//                }
-//                .transition(.slide)
-//            }
-//        }
     }
 }
 
