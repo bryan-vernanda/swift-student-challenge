@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PatternInputView: View {
     // Configuration
-    var outerCircleColor: Color = .white // outer circle color of each pattern dot
-    var lineColor: Color = .white // line color for drawn pattern
+    var outerCircleColor: Color = .chalkboard // outer circle color of each pattern dot
+    var lineColor: Color = .chalkboard // line color for drawn pattern
     var skipVerification: Bool = false // flag to disable pattern verification
     var requiredPattern: [PatternSymbol] // required Pattern to unlock
     var isReadOnly: Bool = false // New property to control read-only mode

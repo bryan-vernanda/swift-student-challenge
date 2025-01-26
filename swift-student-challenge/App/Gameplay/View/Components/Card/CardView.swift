@@ -36,7 +36,7 @@ struct CardView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 75, height: 75)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.chalkboard)
             }
             
         }

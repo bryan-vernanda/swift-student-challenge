@@ -112,7 +112,7 @@ struct CardPlayView: View {
                     .padding(.bottom, 40)
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(.chalkboard)
         }
         .onAppear {
             if viewModel.level == 0 {
