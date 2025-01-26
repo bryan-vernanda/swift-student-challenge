@@ -5,7 +5,7 @@
 //  Created by Bryan Vernanda on 20/01/25.
 //
 
-import Foundation
+import SwiftUI
 
 class CardPlayViewModel: ObservableObject {
     @Published var level: Int
@@ -14,6 +14,7 @@ class CardPlayViewModel: ObservableObject {
     @Published var time: CGFloat
     @Published var isAnimationRunning: Bool
     @Published var isSettingOpen: Bool
+    @Published var rotationAngle: Double
     @Published var cardViewID: UUID
     @Published var patterns: [PatternData]
     
@@ -27,6 +28,7 @@ class CardPlayViewModel: ObservableObject {
         time = 0
         isAnimationRunning = true
         isSettingOpen = false
+        rotationAngle = -45
         cardViewID = UUID()
         patterns = []
     }
@@ -99,5 +101,21 @@ class CardPlayViewModel: ObservableObject {
         isAnimationRunning = true
         cardViewID = UUID()
         patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: numberOfLines)
+    }
+    
+    func refreshLevel() {
+        withAnimation(.easeInOut(duration: 0.5)) {
+            rotationAngle = 0
+        }
+        
+        if !patterns.allSatisfy({ $0.isUnlocked }) {
+            loadLevel()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                self.rotationAngle = -45
+            }
+        }
     }
 }

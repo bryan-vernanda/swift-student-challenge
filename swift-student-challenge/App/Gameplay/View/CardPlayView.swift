@@ -14,12 +14,27 @@ struct CardPlayView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            Color.boardBackground
                 .ignoresSafeArea()
             
             VStack {
                 VStack {
                     HStack {
+                        Button {
+                            viewModel.refreshLevel()
+                        } label: {
+                            Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90")
+                                .resizable()
+                                .frame(width: 42, height: 35)
+                                .rotationEffect(.degrees(viewModel.rotationAngle))
+                        }
+                        .showCase(
+                            order: OnboardingShowcase.refresh.index,
+                            title: OnboardingShowcase.refresh.title,
+                            detail: OnboardingShowcase.refresh.detail,
+                            stage: HighlightStage.onboarding.stringValue
+                        )
+                        
                         Spacer()
                         
                         Button {
@@ -27,7 +42,7 @@ struct CardPlayView: View {
                         } label: {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 35, height: 35)
                         }
                         .showCase(
                             order: OnboardingShowcase.settings.index,
@@ -36,17 +51,17 @@ struct CardPlayView: View {
                             stage: HighlightStage.onboarding.stringValue
                         )
                     }
-                    .padding([.trailing, .top], 16)
+                    .padding([.horizontal, .top])
                     
-                    Text("Level: \(viewModel.level)")
+                    Text("Level \(viewModel.level)")
                         .showCase(
                             order: OnboardingShowcase.level.index,
                             title: OnboardingShowcase.level.title,
                             detail: OnboardingShowcase.level.detail,
                             stage: HighlightStage.onboarding.stringValue
                         )
+                        .font(.chalkboard(.title1))
                 }
-                .foregroundStyle(.white)
                 
                 if !HighlightStage.allCases.contains(where: { $0.stringValue == highlightViewModel.stage })  {
                     CardCombinationView(patternData: viewModel.patterns, time: viewModel.time) {
@@ -61,13 +76,19 @@ struct CardPlayView: View {
                             detail: OnboardingShowcase.patternCard.detail,
                             stage: HighlightStage.onboarding.stringValue
                         )
-                    
-                    Spacer()
                 }
                 
+                Spacer()
+                
                 if let index = viewModel.patterns.firstIndex(where: { !$0.isUnlocked }) {
+                    Text("Pattern:")
+                        .font(.chalkboard(.title1))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading)
+                    
                     PatternInputView(
-                        requiredPattern: viewModel.patterns[index].path
+                        requiredPattern: viewModel.patterns[index].path,
+                        adjustHeight: 62.5
                     ) { status, pattern in
                         if status {
                             withAnimation(.spring(response: 0.45)) {
@@ -75,6 +96,7 @@ struct CardPlayView: View {
                             }
                         }
                     }
+                    .frame(width: 250)
                     .disabled(viewModel.isAnimationRunning)
                     .showCase(
                         order: OnboardingShowcase.patternInput.index,
@@ -83,19 +105,14 @@ struct CardPlayView: View {
                         stage: HighlightStage.onboarding.stringValue
                     )
                 } else {
-                    Button(action: {
+                    PlayButton(title: "NEXT LEVEL") {
                         viewModel.goToNextLevel()
                         viewModel.loadLevel()
-                    }) {
-                        Text("Next Level")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                     }
+                    .padding(.bottom, 40)
                 }
             }
+            .foregroundStyle(.white)
         }
         .onAppear {
             if viewModel.level == 0 {
@@ -153,5 +170,5 @@ struct CardPlayView: View {
 }
 
 #Preview {
-    MainView()
+    CardPlayView()
 }

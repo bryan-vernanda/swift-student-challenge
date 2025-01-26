@@ -13,21 +13,25 @@ struct CardCombinationView: View {
     var onComplete: (() -> Void)?
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Display items in a 2-column grid
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                    ForEach(patternData.prefix(patternData.count - (patternData.count % 2))) { data in
-                        CardSpinView(patternData: data, time: time, onComplete: onComplete)
-                    }
+        VStack(spacing: 24) {
+            // Display items in a 2-column grid
+            LazyVGrid(
+                columns: [
+                    GridItem(.flexible(), spacing: 0),
+                    GridItem(.flexible(), spacing: 0)
+                ],
+                spacing: 24
+            ) {
+                ForEach(patternData.prefix(patternData.count - (patternData.count % 2))) { data in
+                    CardSpinView(patternData: data, time: time, onComplete: onComplete)
                 }
-                
-                // Center the last item if the count is odd
-                if patternData.count % 2 != 0 {
-                    let lastItem = patternData[patternData.count - 1]
-                    CardSpinView(patternData: lastItem, time: time, onComplete: onComplete)
-                        .frame(maxWidth: .infinity, alignment: .center) // Center the last item
-                }
+            }
+            
+            // Center the last item if the count is odd
+            if patternData.count % 2 != 0 {
+                let lastItem = patternData[patternData.count - 1]
+                CardSpinView(patternData: lastItem, time: time, onComplete: onComplete)
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
     }

@@ -76,6 +76,7 @@ enum HighlightStage: CaseIterable {
 }
 
 enum OnboardingShowcase: CaseIterable {
+    case refresh
     case settings
     case level
     case patternCard
@@ -87,6 +88,8 @@ enum OnboardingShowcase: CaseIterable {
     
     var title: String {
         switch self {
+            case .refresh:
+                return "Refresh"
             case .settings:
                 return "Settings"
             case .level:
@@ -100,6 +103,8 @@ enum OnboardingShowcase: CaseIterable {
     
     var detail: String {
         switch self {
+            case .refresh:
+                return "Refresh the pattern if you've forgotten or to restart this level."
             case .settings:
                 return "Settings will allow you to paused, restart, or exit the game."
             case .level:

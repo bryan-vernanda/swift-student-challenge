@@ -15,24 +15,24 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 165, height: 165)
-                .foregroundStyle(.black)
+            RoundedRectangle(cornerRadius: 30)
+                .frame(width: 150, height: 150)
+                .foregroundStyle(.buttonBackground)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(lineWidth: 2)
-                        .foregroundStyle(.orange)
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(lineWidth: 8)
+                        .foregroundStyle(.boardLightBrown)
                 }
             
             if let patternData = patternData {
                 PatternInputView(
                     requiredPattern: patternData.path,
                     isReadOnly: true,
-                    adjustHeight: 50
+                    adjustHeight: 43.75
                 )
-                .frame(width: 200)
+                .frame(width: 175)
             } else {
-                Image(systemName: "questionmark.app")
+                Image(systemName: "questionmark")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 75, height: 75)
