@@ -21,6 +21,6 @@ class HomeViewModel: ObservableObject {
     
     func refreshView() {
         level = levelModel.level
-        patterns = generatePatterns(numberOfPattern: 6, numberOfLines: 6)
+        patterns = generatePatterns(numberOfPattern: 2, numberOfLines: 6)
     }
 }

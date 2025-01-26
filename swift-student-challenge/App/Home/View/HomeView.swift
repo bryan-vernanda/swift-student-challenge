@@ -15,6 +15,19 @@ struct HomeView: View {
         ZStack {
             Color(.boardBackground)
                 .ignoresSafeArea()
+            
+            ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
+                PatternInputView(
+                    outerCircleColor: .boardBackground,
+                    requiredPattern: pattern.path,
+                    isReadOnly: true,
+                    adjustHeight: 50
+                )
+                .frame(width: 200)
+                .padding(.bottom, index % 2 == 0 ? 100 : 20)
+                .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
+            }
 
             VStack {
                 HStack {
