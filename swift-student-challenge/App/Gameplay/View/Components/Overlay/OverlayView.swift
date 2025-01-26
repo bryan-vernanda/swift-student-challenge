@@ -20,31 +20,33 @@ extension CardPlayView {
                 .ignoresSafeArea()
             
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(lineWidth: 2)
-                    .foregroundStyle(.orange)
-                    .background(.black)
-                    .frame(width: 275, height: CGFloat(150 + buttons.count * 50))
+                RoundedRectangle(cornerRadius: 30)
+                    .stroke(lineWidth: 8)
+                    .foregroundStyle(.boardDarkBrown)
+                    .frame(width: 280, height: CGFloat(200 + buttons.count * 50))
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(lineWidth: 8)
+                    )
+                    .background(
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(.boardBackground)
+                    )
                 
                 VStack(spacing: 16) {
                     Text(title)
-                        .font(.title2)
+                        .font(.chalkboard(.title2))
                         .padding(.bottom)
                     
                     ForEach(buttons, id: \.id) { button in
-                        Button(action: button.action) {
-                            Text(button.label)
-                                .font(.headline)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
+                        PlayButton(
+                            title: button.label,
+                            action: button.action
+                        )
                     }
                 }
-                .padding()
-                .foregroundStyle(.white)
+                .padding(.bottom)
+                .foregroundStyle(.chalkboard)
                 .frame(width: 250)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
