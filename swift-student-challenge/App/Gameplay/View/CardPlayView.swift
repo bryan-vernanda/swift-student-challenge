@@ -170,5 +170,5 @@ struct CardPlayView: View {
 }
 
 #Preview {
-    CardPlayView()
+    MainView()
 }

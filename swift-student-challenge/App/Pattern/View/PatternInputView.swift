@@ -9,13 +9,13 @@ import SwiftUI
 
 struct PatternInputView: View {
     // Configuration
-    var outerCircleColor: Color = .black // outer circle color of each pattern dot
+    var outerCircleColor: Color = .white // outer circle color of each pattern dot
     var lineColor: Color = .white // line color for drawn pattern
     var skipVerification: Bool = false // flag to disable pattern verification
     var requiredPattern: [PatternSymbol] // required Pattern to unlock
-    var onPatternComplete: ((Bool, [PatternSymbol]) -> ())? = nil // completion handler for pattern input
     var isReadOnly: Bool = false // New property to control read-only mode
     var adjustHeight: CGFloat = 100
+    var onPatternComplete: ((Bool, [PatternSymbol]) -> ())? = nil // completion handler for pattern input
     
     // view properties
     @State var availableDots: [PatternNode] = (1...9).compactMap({return PatternNode(number: $0)}) // All pattern dots
@@ -57,5 +57,5 @@ struct PatternInputView: View {
 }
 
 #Preview {
-    HomeView()
+    MainView()
 }

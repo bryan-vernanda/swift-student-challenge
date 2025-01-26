@@ -18,7 +18,6 @@ struct HomeView: View {
             
             ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
                 PatternInputView(
-                    outerCircleColor: .boardBackground,
                     requiredPattern: pattern.path,
                     isReadOnly: true,
                     adjustHeight: 50
