@@ -8,7 +8,6 @@
 import Foundation
 
 class HomeViewModel: ObservableObject {
-    @Published var isNavigate: Bool
     @Published var level: Int
     @Published var patterns: [PatternData]
     
@@ -16,7 +15,6 @@ class HomeViewModel: ObservableObject {
     
     init() {
         levelModel = Level()
-        isNavigate = false
         level = levelModel.level
         patterns = []
     }

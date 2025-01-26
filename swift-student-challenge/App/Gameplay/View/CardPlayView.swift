@@ -10,7 +10,7 @@ import SwiftUI
 struct CardPlayView: View {
     @StateObject private var viewModel = CardPlayViewModel()
     @StateObject private var highlightViewModel = HighlightViewModel()
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var navManager: NavigationManager
     
     var body: some View {
         ZStack {
@@ -127,7 +127,7 @@ struct CardPlayView: View {
                                 viewModel.goToNextLevel()
                             }
                             
-                            dismiss()
+                            navManager.currentView = .home
                         })
                     ]
                 )
@@ -153,5 +153,5 @@ struct CardPlayView: View {
 }
 
 #Preview {
-    HomeView()
+    MainView()
 }
