@@ -34,8 +34,8 @@ struct HomeView: View {
                         Text("PATTERN")
                             .padding(.leading, -80)
                         
-                        Text("MATCH")
-                            .padding(.leading, 130)
+                        Text("MIND")
+                            .padding(.leading, 165)
                     }
                 }
                 .padding(.bottom)
