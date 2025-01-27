@@ -1,5 +1,5 @@
 //
-//  GeneratePattern.swift
+//  GeneratePatterns.swift
 //  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 25/01/25.
@@ -38,7 +38,10 @@ func generatePatterns(numberOfPattern: Int, numberOfLines: Int) -> [PatternData]
             currentPattern.append(currentSymbol)
         }
         
-        if currentPattern.count == numberOfLines && !generatedPaths.contains(currentPattern) {
+        let isDuplicate = generatedPaths.contains(currentPattern)
+        let isPalindrome = generatedPaths.contains(currentPattern.reversed())
+        
+        if currentPattern.count == numberOfLines && !isDuplicate && !isPalindrome {
             patterns.append(PatternData(path: currentPattern))
             generatedPaths.insert(currentPattern)
         }
