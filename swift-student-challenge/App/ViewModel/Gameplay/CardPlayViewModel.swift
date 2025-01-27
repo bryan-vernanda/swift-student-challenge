@@ -18,11 +18,11 @@ class CardPlayViewModel: ObservableObject {
     @Published var cardViewID: UUID
     @Published var patterns: [PatternData]
     
-    private var levelModel: Level
+    private var user: User
     
     init() {
-        levelModel = Level()
-        level = levelModel.level
+        user = User()
+        level = user.level
         numberOfPattern = 0
         numberOfLines = 0
         time = 0
@@ -34,14 +34,15 @@ class CardPlayViewModel: ObservableObject {
     }
     
     func resetLevel() {
-        levelModel.resetLevel()
-        level = levelModel.level
+        user.resetLevel()
+        level = user.level
         loadLevel()
     }
     
     func goToNextLevel() {
+        user.highestLevel = max(user.highestLevel, level)
         level += 1
-        levelModel.level = level
+        user.level = level
     }
     
     private func adjustLevelTimeAndLines(levelingPattern: LevelingPattern, timeReduction: CGFloat, levelDivideBy: Int, maxNumberOfAddLines: Int) {

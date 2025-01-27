@@ -9,18 +9,25 @@ import Foundation
 
 class HomeViewModel: ObservableObject {
     @Published var level: Int
+    @Published var highestLevel: Int
     @Published var patterns: [PatternData]
     
-    var levelModel: Level
+    private var user: User
     
     init() {
-        levelModel = Level()
-        level = levelModel.level
+        user = User()
+        level = user.level
+        highestLevel = user.highestLevel
         patterns = []
     }
     
     func refreshView() {
-        level = levelModel.level
+        level = user.level
+        highestLevel = user.highestLevel
         patterns = generatePatterns(numberOfPattern: 2, numberOfLines: 6)
+    }
+    
+    func resetLevel() {
+        user.resetLevel()
     }
 }

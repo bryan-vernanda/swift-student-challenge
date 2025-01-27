@@ -46,8 +46,7 @@ struct HomeView: View {
                     Image(systemName: "trophy.fill")
                         .foregroundStyle(.trophyYellow)
                     
-                    Text("Highest Level: ")
-                        
+                    Text("Highest Level: \(viewModel.highestLevel)")
                 }
                 .font(.chalkboard(.title3))
             }
@@ -61,7 +60,7 @@ struct HomeView: View {
             } else {
                 VStack {
                     PlayButton(title: "NEW GAME") {
-                        viewModel.levelModel.resetLevel()
+                        viewModel.resetLevel()
                         navManager.currentView = .play
                     }
                     .padding(.bottom)

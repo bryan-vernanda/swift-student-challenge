@@ -7,20 +7,35 @@
 
 import Foundation
 
-struct Level {
+struct User {
     private let levelKey = "levelKey"
+    private let highestLevelKey = "highestLevelKey"
     private let defaults = UserDefaults.standard
 
     var level: Int {
         get {
-            return defaults.integer(forKey: levelKey)
+            defaults.integer(forKey: levelKey)
         }
         set {
             defaults.set(newValue, forKey: levelKey)
         }
     }
     
+    var highestLevel: Int {
+        get {
+            defaults.integer(forKey: highestLevelKey)
+        }
+        set {
+            defaults.set(newValue, forKey: highestLevelKey)
+        }
+    }
+    
     func resetLevel(to defaultLevel: Int = 1) {
         defaults.set(defaultLevel, forKey: levelKey)
     }
+    
+    func resetHighestLevel(to defaultHighestLevel: Int = 0) {
+        defaults.set(defaultHighestLevel, forKey: highestLevelKey)
+    }
 }
+
