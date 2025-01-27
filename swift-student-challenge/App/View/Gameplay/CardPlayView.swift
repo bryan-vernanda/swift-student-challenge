@@ -115,13 +115,13 @@ struct CardPlayView: View {
             .foregroundStyle(.chalkboard)
         }
         .onAppear {
-            if viewModel.level == 0 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                if viewModel.level == 0 {
                     highlightViewModel.stage = HighlightStage.onboarding.stringValue
                 }
+                
+                viewModel.loadLevel()
             }
-            
-            viewModel.loadLevel()
         }
         .navigationBarBackButtonHidden(true)
         .modifier(HighlightHelperView(viewModel: highlightViewModel))
