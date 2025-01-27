@@ -37,7 +37,7 @@ extension PatternInputView {
         .frame(maxWidth: 400)
         .padding(.horizontal, 20)
         .coordinateSpace(.named("PATTERN_GRID"))
-        .animation(.easeInOut(duration: 0.4), value: displayError)
+        .animation(.easeInOut, value: displayError)
         .contentShape(.rect)
         .gesture(
             DragGesture(minimumDistance: 0)
@@ -76,7 +76,7 @@ extension PatternInputView {
                             activePattern = []
                             onPatternComplete?(true, enteredPattern)
                         } else {
-                            withAnimation(.easeInOut(duration: 0.4)) {
+                            withAnimation(.easeInOut) {
                                 displayError = true
                             } completion: {
                                 displayError = false

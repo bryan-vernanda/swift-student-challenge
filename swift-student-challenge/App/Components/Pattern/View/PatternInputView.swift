@@ -42,7 +42,7 @@ struct PatternInputView: View {
                             .transition(.opacity)
                     }
                 }
-                .animation(.easeInOut(duration: 0.4), value: points)
+                .animation(.easeInOut, value: points)
             }
             .shakeEffect(trigger: displayError, distance: 10) // default 20
             .onAppear {

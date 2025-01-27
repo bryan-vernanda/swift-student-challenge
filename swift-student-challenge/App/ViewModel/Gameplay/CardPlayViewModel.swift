@@ -105,7 +105,7 @@ class CardPlayViewModel: ObservableObject {
     }
     
     func refreshLevel() {
-        withAnimation(.easeInOut(duration: 0.5)) {
+        withAnimation(.easeInOut) {
             rotationAngle = 0
         }
         
@@ -113,8 +113,8 @@ class CardPlayViewModel: ObservableObject {
             loadLevel()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.easeInOut(duration: 0.5)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            withAnimation(.easeInOut) {
                 self.rotationAngle = -45
             }
         }

@@ -158,10 +158,8 @@ struct CardPlayView: View {
                     title: "Ready To Play?",
                     buttons: [
                         OverlayButtonData(label: "I'm Ready!", action: {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                withAnimation(.easeInOut(duration: 0.5)) {
-                                    highlightViewModel.stage = ""
-                                }
+                            withAnimation(.easeInOut) {
+                                highlightViewModel.stage = ""
                             }
                         })
                     ]

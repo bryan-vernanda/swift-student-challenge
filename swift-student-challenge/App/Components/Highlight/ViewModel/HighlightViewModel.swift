@@ -33,7 +33,7 @@ class HighlightViewModel: ObservableObject {
     }
     
     func markStageStringValue() {
-        withAnimation(.easeInOut(duration: 0.5)) {
+        withAnimation(.easeInOut) {
             self.stage = HighlightStage.isDone.stringValue
         }
     }
@@ -72,7 +72,7 @@ class HighlightViewModel: ObservableObject {
     
     func updateCurrentHighlight() {
         if currentHighlight >= highlightOrder.count - 1 {
-            withAnimation(.easeInOut(duration: 0.25)) {
+            withAnimation(.easeInOut) {
                 showView = false
             }
             resetCurrectHighlightValue()
