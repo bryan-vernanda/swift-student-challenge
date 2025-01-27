@@ -116,7 +116,9 @@ struct CardPlayView: View {
         }
         .onAppear {
             if viewModel.level == 0 {
-                highlightViewModel.stage = HighlightStage.onboarding.stringValue
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    highlightViewModel.stage = HighlightStage.onboarding.stringValue
+                }
             }
             
             viewModel.loadLevel()
