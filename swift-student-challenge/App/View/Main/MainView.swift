@@ -18,7 +18,7 @@ struct MainView: View {
                     .matchedGeometryEffect(id: "transition", in: transitionNamespace)
                     .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
             } else if navManager.currentView == .play {
-                CardPlayView()
+                GameplayView()
                     .matchedGeometryEffect(id: "transition", in: transitionNamespace)
                     .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension CardPlayView {
+extension GameplayView {
     @ViewBuilder
     func overlayView(
         title: String,

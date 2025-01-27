@@ -1,5 +1,5 @@
 //
-//  CardPlayView.swift
+//  GameplayView.swift
 //  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 20/01/25.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CardPlayView: View {
-    @StateObject private var viewModel = CardPlayViewModel()
+struct GameplayView: View {
+    @StateObject private var viewModel = GameplayViewModel()
     @StateObject private var highlightViewModel = HighlightViewModel()
     @EnvironmentObject var navManager: NavigationManager
     

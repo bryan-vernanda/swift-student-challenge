@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CardPlayView {
+extension GameplayView {
     struct OverlayButtonData: Identifiable {
         let id = UUID()
         let label: String

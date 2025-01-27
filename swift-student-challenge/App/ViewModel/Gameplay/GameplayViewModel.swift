@@ -1,5 +1,5 @@
 //
-//  CardPlayViewModel.swift
+//  GameplayViewModel.swift
 //  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 20/01/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class CardPlayViewModel: ObservableObject {
+class GameplayViewModel: ObservableObject {
     @Published var level: Int
     @Published var numberOfPattern: Int
     @Published var numberOfLines: Int
