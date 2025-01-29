@@ -32,6 +32,11 @@ struct CardSpinView: View {
         .onDisappear {
             timer?.invalidate()
         }
+        .onChange(of: patternData.isUnlocked) { _, newValue in
+            if newValue {
+                isFlipped = true
+            }
+        }
     }
     
     private func startFlipAnimation() {
