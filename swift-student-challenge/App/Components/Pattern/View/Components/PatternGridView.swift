@@ -70,9 +70,11 @@ extension PatternInputView {
                         activePattern = []
                         onPatternComplete?(false, enteredPattern)
                     } else {
-                        let isPatternValid = enteredPattern == requiredPattern || enteredPattern == requiredPattern.reversed()
+                        let matchedPattern = requiredPattern.first { patternData in
+                            enteredPattern == patternData.path || enteredPattern == patternData.path.reversed()
+                        }
                         
-                        if isPatternValid {
+                        if matchedPattern != nil {
                             activePattern = []
                             onPatternComplete?(true, enteredPattern)
                         } else {

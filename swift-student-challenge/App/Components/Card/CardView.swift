@@ -26,7 +26,7 @@ struct CardView: View {
             
             if let patternData = patternData {
                 PatternInputView(
-                    requiredPattern: patternData.path,
+                    requiredPattern: [patternData],
                     isReadOnly: true,
                     adjustHeight: 43.75
                 )

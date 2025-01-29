@@ -80,19 +80,21 @@ struct GameplayView: View {
                 
                 Spacer()
                 
-                if let index = viewModel.patterns.firstIndex(where: { !$0.isUnlocked }) {
+                if viewModel.patterns.firstIndex(where: { !$0.isUnlocked }) != nil {
                     Text("Pattern:")
                         .font(.chalkboard(.title1))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading)
                     
                     PatternInputView(
-                        requiredPattern: viewModel.patterns[index].path,
+                        requiredPattern: viewModel.patterns,
                         adjustHeight: 62.5
                     ) { status, pattern in
                         if status {
                             withAnimation(.spring(response: 0.45)) {
-                                viewModel.patterns[index].isUnlocked = true
+                                if let matchedIndex = viewModel.patterns.firstIndex(where: { $0.path == pattern || $0.path.reversed() == pattern }) {
+                                    viewModel.patterns[matchedIndex].isUnlocked = true
+                                }
                             }
                         }
                     }

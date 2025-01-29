@@ -18,7 +18,7 @@ struct HomeView: View {
             
             ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
                 PatternInputView(
-                    requiredPattern: pattern.path,
+                    requiredPattern: [pattern],
                     isReadOnly: true,
                     adjustHeight: 50
                 )

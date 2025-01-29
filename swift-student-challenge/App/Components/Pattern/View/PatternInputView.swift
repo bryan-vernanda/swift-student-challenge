@@ -12,7 +12,7 @@ struct PatternInputView: View {
     var outerCircleColor: Color = .chalkboard // outer circle color of each pattern dot
     var lineColor: Color = .chalkboard // line color for drawn pattern
     var skipVerification: Bool = false // flag to disable pattern verification
-    var requiredPattern: [PatternSymbol] // required Pattern to unlock
+    var requiredPattern: [PatternData] // required Pattern to unlock
     var isReadOnly: Bool = false // New property to control read-only mode
     var adjustHeight: CGFloat = 100
     var onPatternComplete: ((Bool, [PatternSymbol]) -> ())? = nil // completion handler for pattern input
@@ -46,9 +46,9 @@ struct PatternInputView: View {
             }
             .shakeEffect(trigger: displayError, distance: 10) // default 20
             .onAppear {
-                if isReadOnly {
-                    // Pre-fill the activePattern with the required pattern
-                    activePattern = requiredPattern.compactMap { symbol in
+                // Pre-fill the activePattern with the required pattern
+                if isReadOnly, let firstPattern = requiredPattern.first {
+                    activePattern = firstPattern.path.compactMap { symbol in
                         availableDots.first { $0.number == symbol.rawValue }
                     }
                 }
