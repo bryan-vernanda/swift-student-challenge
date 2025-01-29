@@ -57,5 +57,5 @@ struct PatternInputView: View {
 }
 
 #Preview {
-    MainView()
+    HomeView()
 }

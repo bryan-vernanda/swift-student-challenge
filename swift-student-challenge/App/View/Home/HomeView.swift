@@ -9,78 +9,82 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
-    @EnvironmentObject var navManager: NavigationManager
     
     var body: some View {
-        ZStack {
-            Color(.boardBackground)
-                .ignoresSafeArea()
-            
-            ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
-                PatternInputView(
-                    requiredPattern: [pattern],
-                    isReadOnly: true,
-                    adjustHeight: 50
-                )
-                .frame(width: 200)
-                .padding(.bottom, index % 2 == 0 ? 100 : 20)
-                .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
-            }
-
-            VStack {
-                HStack {
-                    VStack {
-                        Text("PATTERN")
-                            .padding(.leading, -80)
-                        
-                        Text("MIND")
-                            .padding(.leading, 165)
-                    }
-                }
-                .padding(.bottom)
-                .font(.chalkboard(.XXLTitle))
-                .rotationEffect(.degrees(-11.15))
+        NavigationStack {
+            ZStack {
+                Color(.boardBackground)
+                    .ignoresSafeArea()
                 
-                HStack {
-                    Image(systemName: "trophy.fill")
-                        .foregroundStyle(.trophyYellow)
-                    
-                    Text("Highest Level: \(viewModel.highestLevel)")
+                ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
+                    PatternInputView(
+                        requiredPattern: [pattern],
+                        isReadOnly: true,
+                        adjustHeight: 50
+                    )
+                    .frame(width: 200)
+                    .padding(.bottom, index % 2 == 0 ? 100 : 20)
+                    .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
                 }
-                .font(.chalkboard(.title3))
-            }
-            .padding(.top, 40)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            
-            if viewModel.level == 0 {
-                PlayButton(title: "PLAY") {
-                    navManager.currentView = .play
-                }
-            } else {
+
                 VStack {
-                    PlayButton(title: "NEW GAME") {
-                        viewModel.resetLevel()
-                        navManager.currentView = .play
+                    HStack {
+                        VStack {
+                            Text("PATTERN")
+                                .padding(.leading, -80)
+                            
+                            Text("MIND")
+                                .padding(.leading, 165)
+                        }
                     }
                     .padding(.bottom)
+                    .font(.chalkboard(.XXLTitle))
+                    .rotationEffect(.degrees(-11.15))
                     
-                    PlayButton(title: "CONTINUE") {
-                        navManager.currentView = .play
+                    HStack {
+                        Image(systemName: "trophy.fill")
+                            .foregroundStyle(.trophyYellow)
+                        
+                        Text("Highest Level: \(viewModel.highestLevel)")
                     }
+                    .font(.chalkboard(.title3))
                 }
-                .padding(.top)
+                .padding(.top, 40)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                
+                if viewModel.level == 0 {
+                    PlayButton(title: "PLAY") {
+                        viewModel.navigateToGameplayView()
+                    }
+                } else {
+                    VStack {
+                        PlayButton(title: "NEW GAME") {
+                            viewModel.resetLevel()
+                            viewModel.navigateToGameplayView()
+                        }
+                        .padding(.bottom)
+                        
+                        PlayButton(title: "CONTINUE") {
+                            viewModel.navigateToGameplayView()
+                        }
+                    }
+                    .padding(.top)
+                }
             }
-        }
-        .foregroundStyle(.chalkboard)
-        .onAppear {
-            viewModel.refreshView()
+            .foregroundStyle(.chalkboard)
+            .onAppear {
+                viewModel.refreshView()
+            }
+            .navigationDestination(isPresented: $viewModel.isNavigate) {
+                GameplayView()
+            }
         }
     }
 }
 
 #Preview {
-    MainView()
+    HomeView()
 }
 
 

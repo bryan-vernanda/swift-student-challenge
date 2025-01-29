@@ -10,7 +10,7 @@ import SwiftUI
 struct GameplayView: View {
     @StateObject private var viewModel = GameplayViewModel()
     @StateObject private var highlightViewModel = HighlightViewModel()
-    @EnvironmentObject var navManager: NavigationManager
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
@@ -148,7 +148,7 @@ struct GameplayView: View {
                                 viewModel.goToNextLevel()
                             }
                             
-                            navManager.currentView = .home
+                            dismiss()
                         })
                     ]
                 )
@@ -172,5 +172,5 @@ struct GameplayView: View {
 }
 
 #Preview {
-    MainView()
+    GameplayView()
 }

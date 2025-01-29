@@ -10,6 +10,7 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published var level: Int
     @Published var highestLevel: Int
+    @Published var isNavigate: Bool
     @Published var patterns: [PatternData]
     
     private var user: User
@@ -18,6 +19,7 @@ class HomeViewModel: ObservableObject {
         user = User()
         level = user.level
         highestLevel = user.highestLevel
+        isNavigate = false
         patterns = []
     }
     
@@ -29,5 +31,9 @@ class HomeViewModel: ObservableObject {
     
     func resetLevel() {
         user.resetLevel()
+    }
+    
+    func navigateToGameplayView() {
+        isNavigate = true
     }
 }
