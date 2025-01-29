@@ -79,6 +79,7 @@ extension PatternInputView {
                             onPatternComplete?(true, enteredPattern)
                         } else {
                             withAnimation(.easeInOut) {
+                                HapticManager.notif(type: .error)
                                 displayError = true
                             } completion: {
                                 displayError = false

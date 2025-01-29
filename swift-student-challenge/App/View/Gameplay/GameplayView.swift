@@ -106,12 +106,15 @@ struct GameplayView: View {
                         detail: OnboardingShowcase.patternInput.detail,
                         stage: HighlightStage.onboarding.stringValue
                     )
-                } else {
+                } else if viewModel.patterns.allSatisfy({ $0.isUnlocked }) && !viewModel.patterns.isEmpty {
                     PlayButton(title: "NEXT LEVEL") {
                         viewModel.goToNextLevel()
                         viewModel.loadLevel()
                     }
                     .padding(.bottom, 40)
+                    .onAppear {
+                        HapticManager.notif(type: .success)
+                    }
                 }
             }
             .foregroundStyle(.chalkboard)
