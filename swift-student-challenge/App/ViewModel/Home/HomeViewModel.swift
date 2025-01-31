@@ -25,11 +25,15 @@ class HomeViewModel: ObservableObject {
         patterns = []
     }
     
+    func checkIsIpad() -> Bool {
+        return deviceType == .pad
+    }
+    
     func refreshView() {
         level = user.level
         highestLevel = user.highestLevel
         
-        let numberOfPattern = deviceType == .pad ? 6 : 2
+        let numberOfPattern = checkIsIpad() ? 6 : 2
         patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: 6)
     }
     

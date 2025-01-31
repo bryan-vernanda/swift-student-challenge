@@ -16,7 +16,7 @@ struct HomeView: View {
                 Color.boardBackground
                     .ignoresSafeArea()
                 
-                if viewModel.deviceType == .pad {
+                if viewModel.checkIsIpad() {
                     ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
                         let position = PatternPosition.allCases[index % PatternPosition.allCases.count]
                         VStack {
@@ -50,14 +50,14 @@ struct HomeView: View {
                     HStack {
                         VStack {
                             Text("PATTERN")
-                                .padding(.leading, viewModel.deviceType == .pad ? -85 : -80)
+                                .padding(.leading, viewModel.checkIsIpad() ? -85 : -80)
                             
                             Text("MIND")
-                                .padding(.leading, viewModel.deviceType == .pad ? 170 : 165)
+                                .padding(.leading, viewModel.checkIsIpad() ? 170 : 165)
                         }
                     }
                     .padding(.bottom)
-                    .font(.chalkboard(viewModel.deviceType == .pad ? .ExtraXLTitle : .XXLTitle))
+                    .font(.chalkboard(viewModel.checkIsIpad() ? .ExtraXLTitle : .XXLTitle))
                     .rotationEffect(.degrees(-11.15))
                     
                     HStack {
@@ -66,9 +66,9 @@ struct HomeView: View {
                         
                         Text("Highest Level: \(viewModel.highestLevel)")
                     }
-                    .font(.chalkboard(viewModel.deviceType == .pad ? .title2half : .title3))
+                    .font(.chalkboard(viewModel.checkIsIpad() ? .title2half : .title3))
                 }
-                .padding(.top, viewModel.deviceType == .pad ? 60 : 40)
+                .padding(.top, viewModel.checkIsIpad() ? 60 : 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
                 if viewModel.level == 0 {
@@ -87,7 +87,7 @@ struct HomeView: View {
                             viewModel.navigateToGameplayView()
                         }
                     }
-                    .padding(.top, viewModel.deviceType == .pad ? 100 : 0)
+                    .padding(.top, viewModel.checkIsIpad() ? 100 : 0)
                 }
             }
             .foregroundStyle(.chalkboard)
