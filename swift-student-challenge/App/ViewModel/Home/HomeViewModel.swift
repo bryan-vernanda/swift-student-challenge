@@ -5,12 +5,13 @@
 //  Created by Bryan Vernanda on 21/01/25.
 //
 
-import Foundation
+import SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var level: Int
     @Published var highestLevel: Int
     @Published var isNavigate: Bool
+    @Published var deviceType: UIUserInterfaceIdiom
     @Published var patterns: [PatternData]
     
     private var user: User
@@ -20,13 +21,16 @@ class HomeViewModel: ObservableObject {
         level = user.level
         highestLevel = user.highestLevel
         isNavigate = false
+        deviceType = UIDevice.current.userInterfaceIdiom
         patterns = []
     }
     
     func refreshView() {
         level = user.level
         highestLevel = user.highestLevel
-        patterns = generatePatterns(numberOfPattern: 2, numberOfLines: 6)
+        
+        let numberOfPattern = deviceType == .pad ? 6 : 2
+        patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: 6)
     }
     
     func resetLevel() {

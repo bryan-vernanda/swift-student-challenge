@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlayButton: View {
+    let deviceType = UIDevice.current.userInterfaceIdiom
     let title: String
     let action: () -> Void
     
@@ -24,9 +25,9 @@ struct PlayButton: View {
                     )
                 
                 Text(title)
-                    .font(.chalkboard(.title3))
+                    .font(.chalkboard(deviceType == .pad ? .title2half : .title3))
             }
-            .frame(width: 200, height: 60)
+            .frame(width: deviceType == .pad ? 233.33 : 200, height: deviceType == .pad ? 70 : 60)
         }
     }
 }

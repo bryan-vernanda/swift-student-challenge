@@ -13,33 +13,51 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.boardBackground)
+                Color.boardBackground
                     .ignoresSafeArea()
                 
-                ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
-                    PatternInputView(
-                        requiredPattern: [pattern],
-                        isReadOnly: true,
-                        adjustHeight: 50
-                    )
-                    .frame(width: 200)
-                    .padding(.bottom, index % 2 == 0 ? 100 : 20)
-                    .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
+                if viewModel.deviceType == .pad {
+                    ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
+                        let position = PatternPosition.allCases[index % PatternPosition.allCases.count]
+                        VStack {
+                            PatternInputView(
+                                requiredPattern: [pattern],
+                                isReadOnly: true,
+                                adjustHeight: 60
+                            )
+                            .frame(width: 240)
+                            .padding(.bottom, position.paddingBottom)
+                            .rotationEffect(.degrees(position.rotationEffect))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
+                        }
+                        .padding(index % 2 == 0 ? .leading : .trailing, position.paddingLeadTrail)
+                    }
+                } else {
+                    ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
+                        PatternInputView(
+                            requiredPattern: [pattern],
+                            isReadOnly: true,
+                            adjustHeight: 50
+                        )
+                        .frame(width: 200)
+                        .padding(.bottom, index % 2 == 0 ? 100 : 20)
+                        .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
+                    }
                 }
 
                 VStack {
                     HStack {
                         VStack {
                             Text("PATTERN")
-                                .padding(.leading, -80)
+                                .padding(.leading, viewModel.deviceType == .pad ? -85 : -80)
                             
                             Text("MIND")
-                                .padding(.leading, 165)
+                                .padding(.leading, viewModel.deviceType == .pad ? 170 : 165)
                         }
                     }
                     .padding(.bottom)
-                    .font(.chalkboard(.XXLTitle))
+                    .font(.chalkboard(viewModel.deviceType == .pad ? .ExtraXLTitle : .XXLTitle))
                     .rotationEffect(.degrees(-11.15))
                     
                     HStack {
@@ -48,9 +66,9 @@ struct HomeView: View {
                         
                         Text("Highest Level: \(viewModel.highestLevel)")
                     }
-                    .font(.chalkboard(.title3))
+                    .font(.chalkboard(viewModel.deviceType == .pad ? .title2half : .title3))
                 }
-                .padding(.top, 40)
+                .padding(.top, viewModel.deviceType == .pad ? 60 : 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
                 if viewModel.level == 0 {
@@ -69,7 +87,7 @@ struct HomeView: View {
                             viewModel.navigateToGameplayView()
                         }
                     }
-                    .padding(.top)
+                    .padding(.top, viewModel.deviceType == .pad ? 100 : 0)
                 }
             }
             .foregroundStyle(.chalkboard)
