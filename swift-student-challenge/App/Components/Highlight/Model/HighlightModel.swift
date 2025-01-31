@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HighlightModel: Identifiable, Equatable, Hashable {
+struct HighlightModel: Identifiable, Equatable {
     var id: UUID = .init()
     var anchor: Anchor<CGRect>
     var title: String
