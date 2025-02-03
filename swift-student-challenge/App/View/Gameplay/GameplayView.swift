@@ -25,7 +25,7 @@ struct GameplayView: View {
                         } label: {
                             Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90")
                                 .resizable()
-                                .frame(width: 42, height: 35)
+                                .frame(width: viewModel.checkIsIpad() ? 67.2 : 42, height: viewModel.checkIsIpad() ? 56 : 35)
                                 .rotationEffect(.degrees(viewModel.rotationAngle))
                         }
                         .showCase(
@@ -42,7 +42,7 @@ struct GameplayView: View {
                         } label: {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
-                                .frame(width: 35, height: 35)
+                                .frame(width: viewModel.checkIsIpad() ? 56 : 35, height: viewModel.checkIsIpad() ? 56 : 35)
                         }
                         .showCase(
                             order: OnboardingShowcase.settings.index,
@@ -51,7 +51,9 @@ struct GameplayView: View {
                             stage: HighlightStage.onboarding.stringValue
                         )
                     }
-                    .padding([.horizontal, .top])
+                    .padding(.horizontal, viewModel.checkIsIpad() ? 40 : 16)
+                    .padding(.top, 16)
+                    .disabled(highlightViewModel.stage == HighlightStage.isDone.stringValue || viewModel.isSettingOpen)
                     
                     Text("Level \(viewModel.level)")
                         .showCase(
@@ -60,7 +62,7 @@ struct GameplayView: View {
                             detail: OnboardingShowcase.level.detail,
                             stage: HighlightStage.onboarding.stringValue
                         )
-                        .font(.chalkboard(.title1))
+                        .font(.chalkboard(viewModel.checkIsIpad() ? .XLTitle : .title1))
                 }
                 
                 if !HighlightStage.allCases.contains(where: { $0.stringValue == highlightViewModel.stage })  {
@@ -82,13 +84,16 @@ struct GameplayView: View {
                 
                 if viewModel.patterns.firstIndex(where: { !$0.isUnlocked }) != nil {
                     Text("Pattern:")
-                        .font(.chalkboard(.title1))
+                        .font(.chalkboard(viewModel.checkIsIpad() ? .XLTitle : .title1))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading)
+                        .padding(.leading, viewModel.checkIsIpad() ? 40 : 16)
+                        .padding(.bottom, viewModel.checkIsIpad() ? 16 : 0)
                     
                     PatternInputView(
                         requiredPattern: viewModel.patterns,
-                        adjustHeight: 62.5
+                        adjustCircleFrame: (viewModel.checkIsIpad() ? 17.6 : 11),
+                        adjustLineWidth: (viewModel.checkIsIpad() ? 8 : 5),
+                        adjustHeight: viewModel.checkIsIpad() ? 100 : 62.5
                     ) { status, pattern in
                         if status {
                             withAnimation(.spring(response: 0.45)) {
@@ -98,7 +103,7 @@ struct GameplayView: View {
                             }
                         }
                     }
-                    .frame(width: 250)
+                    .frame(width: viewModel.checkIsIpad() ? 400 : 250)
                     .disabled(viewModel.isAnimationRunning)
                     .showCase(
                         order: OnboardingShowcase.patternInput.index,
@@ -111,7 +116,7 @@ struct GameplayView: View {
                         viewModel.goToNextLevel()
                         viewModel.loadLevel()
                     }
-                    .padding(.bottom, 40)
+                    .padding(.bottom, viewModel.checkIsIpad() ? 100 : 60)
                     .onAppear {
                         HapticManager.notif(type: .success)
                     }

@@ -8,24 +8,26 @@
 import SwiftUI
 
 struct CardCombinationView: View {
+    let deviceType = UIDevice.current.userInterfaceIdiom
     let patternData: [PatternData]
     let time: CGFloat
     var onComplete: (() -> Void)?
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: deviceType == .pad ? 51.2 : 32) {
             // Display items in a 2-column grid
             LazyVGrid(
                 columns: [
                     GridItem(.flexible(), spacing: 0),
                     GridItem(.flexible(), spacing: 0)
                 ],
-                spacing: 24
+                spacing: deviceType == .pad ? 51.2 : 32
             ) {
                 ForEach(patternData.prefix(patternData.count - (patternData.count % 2))) { data in
                     CardSpinView(patternData: data, time: time, onComplete: onComplete)
                 }
             }
+            .frame(maxWidth: deviceType == .pad ? 600 : 375)
             
             // Center the last item if the count is odd
             if patternData.count % 2 != 0 {

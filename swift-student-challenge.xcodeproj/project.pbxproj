@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9316EB2B2D44DDBD00FB3409 /* Exceptions for "swift-student-challenge" folder in "swift-student-challenge" target */ = {
+		9332BA4A2D50B1A0004136B3 /* Exceptions for "swift-student-challenge" folder in "swift-student-challenge" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		9316E76B2D35024100FB3409 /* swift-student-challenge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				9316EB2B2D44DDBD00FB3409 /* Exceptions for "swift-student-challenge" folder in "swift-student-challenge" target */,
+				9332BA4A2D50B1A0004136B3 /* Exceptions for "swift-student-challenge" folder in "swift-student-challenge" target */,
 			);
 			path = "swift-student-challenge";
 			sourceTree = "<group>";
@@ -274,7 +274,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,7 +309,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

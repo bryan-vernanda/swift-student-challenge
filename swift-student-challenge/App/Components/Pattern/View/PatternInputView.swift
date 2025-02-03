@@ -14,6 +14,8 @@ struct PatternInputView: View {
     var skipVerification: Bool = false // flag to disable pattern verification
     var requiredPattern: [PatternData] // required Pattern to unlock
     var isReadOnly: Bool = false // New property to control read-only mode
+    var adjustCircleFrame: CGFloat = 11
+    var adjustLineWidth: CGFloat = 5
     var adjustHeight: CGFloat = 100
     var onPatternComplete: ((Bool, [PatternSymbol]) -> ())? = nil // completion handler for pattern input
     
@@ -36,7 +38,7 @@ struct PatternInputView: View {
                             .stroke(
                                 displayError ? .red : lineColor,
                                 style: StrokeStyle(
-                                    lineWidth: 5, lineCap: .round, lineJoin: .round
+                                    lineWidth: adjustLineWidth, lineCap: .round, lineJoin: .round
                                 )
                             )
                             .transition(.opacity)

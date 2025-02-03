@@ -23,14 +23,16 @@ struct HomeView: View {
                             PatternInputView(
                                 requiredPattern: [pattern],
                                 isReadOnly: true,
+                                adjustCircleFrame: 13.2,
+                                adjustLineWidth: 6,
                                 adjustHeight: 60
                             )
                             .frame(width: 240)
-                            .padding(.bottom, position.paddingBottom)
                             .rotationEffect(.degrees(position.rotationEffect))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                            .padding(.bottom, position.paddingBottom)
+                            .padding(.leading, position.paddingLeading)
                         }
-                        .padding(index % 2 == 0 ? .leading : .trailing, position.paddingLeadTrail)
                     }
                 } else {
                     ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
@@ -40,7 +42,7 @@ struct HomeView: View {
                             adjustHeight: 50
                         )
                         .frame(width: 200)
-                        .padding(.bottom, index % 2 == 0 ? 100 : 20)
+                        .padding(.bottom, index % 2 == 0 ? 100 : 40)
                         .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
                     }
@@ -50,14 +52,14 @@ struct HomeView: View {
                     HStack {
                         VStack {
                             Text("PATTERN")
-                                .padding(.leading, viewModel.checkIsIpad() ? -85 : -80)
+                                .padding(.leading, viewModel.checkIsIpad() ? -105 : -80)
                             
                             Text("MIND")
-                                .padding(.leading, viewModel.checkIsIpad() ? 170 : 165)
+                                .padding(.leading, viewModel.checkIsIpad() ? 190 : 165)
                         }
                     }
                     .padding(.bottom)
-                    .font(.chalkboard(viewModel.checkIsIpad() ? .ExtraXLTitle : .XXLTitle))
+                    .font(viewModel.checkIsIpad() ? .chalkboard(fontSize: 64): .chalkboard(.XXLTitle))
                     .rotationEffect(.degrees(-11.15))
                     
                     HStack {
@@ -66,9 +68,9 @@ struct HomeView: View {
                         
                         Text("Highest Level: \(viewModel.highestLevel)")
                     }
-                    .font(.chalkboard(viewModel.checkIsIpad() ? .title2half : .title3))
+                    .font(.chalkboard(viewModel.checkIsIpad() ? .title1 : .title3))
                 }
-                .padding(.top, viewModel.checkIsIpad() ? 60 : 40)
+                .padding(.top, 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
                 if viewModel.level == 0 {
@@ -81,7 +83,7 @@ struct HomeView: View {
                             viewModel.resetLevel()
                             viewModel.navigateToGameplayView()
                         }
-                        .padding(.bottom)
+                        .padding(.bottom, viewModel.checkIsIpad() ? 25.6 : 16)
                         
                         PlayButton(title: "CONTINUE") {
                             viewModel.navigateToGameplayView()

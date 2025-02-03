@@ -15,6 +15,7 @@ class GameplayViewModel: ObservableObject {
     @Published var isAnimationRunning: Bool
     @Published var isSettingOpen: Bool
     @Published var rotationAngle: Double
+    @Published var deviceType: UIUserInterfaceIdiom
     @Published var cardViewID: UUID
     @Published var patterns: [PatternData]
     
@@ -29,8 +30,13 @@ class GameplayViewModel: ObservableObject {
         isAnimationRunning = true
         isSettingOpen = false
         rotationAngle = -45
+        deviceType = UIDevice.current.userInterfaceIdiom
         cardViewID = UUID()
         patterns = []
+    }
+    
+    func checkIsIpad() -> Bool {
+        return deviceType == .pad
     }
     
     func resetLevel() {

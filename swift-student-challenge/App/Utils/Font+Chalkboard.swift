@@ -21,19 +21,17 @@ enum ChalkboardFontWeight {
     var value: String {
         switch self {
             case .bold:
-                "Chalkboard-Bold"
+                "ChalkboardSE-Bold"
         }
     }
 }
 
 enum ChalkboardFontSize {
-    case ExtraXLTitle
     case XXLTitle
     case XLTitle
     case largeTitle
     case title1
     case title2
-    case title2half
     case title3
     case body
     case callout
@@ -44,8 +42,6 @@ enum ChalkboardFontSize {
     
     var size: CGFloat {
         switch self {
-            case .ExtraXLTitle:
-                56
             case .XXLTitle:
                 52
             case .XLTitle:
@@ -56,8 +52,6 @@ enum ChalkboardFontSize {
                 36
             case .title2:
                 32
-            case .title2half:
-                28
             case .title3:
                 24
             case .body:
@@ -79,6 +73,10 @@ enum ChalkboardFontSize {
 extension Font {
     static func chalkboard(_ fontSize: ChalkboardFontSize, _ fontWeight: ChalkboardFontWeight = .bold) -> Font {
         return Font.custom(fontWeight.value, size: fontSize.size)
+    }
+    
+    static func chalkboard(fontSize: CGFloat, _ fontWeight: ChalkboardFontWeight = .bold) -> Font {
+        return Font.custom(fontWeight.value, size: fontSize)
     }
 }
 

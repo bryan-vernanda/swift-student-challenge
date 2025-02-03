@@ -30,7 +30,7 @@ struct User {
         }
     }
     
-    func resetLevel(to defaultLevel: Int = 1) {
+    func resetLevel(to defaultLevel: Int = 52) {
         defaults.set(defaultLevel, forKey: levelKey)
     }
     

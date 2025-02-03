@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
+    let deviceType = UIDevice.current.userInterfaceIdiom
     var backRotation: CGFloat
     var returnRotation: CGFloat
     var isFlipped: Bool
@@ -15,12 +16,12 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 30)
-                .frame(width: 150, height: 150)
+            RoundedRectangle(cornerRadius: deviceType == .pad ? 48 : 30)
+                .frame(width: deviceType == .pad ? 240 : 150, height: deviceType == .pad ? 240 : 150)
                 .foregroundStyle(.buttonBackground)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 8)
+                    RoundedRectangle(cornerRadius: deviceType == .pad ? 48 : 30)
+                        .stroke(lineWidth: deviceType == .pad ? 12.8 : 8)
                         .foregroundStyle(.boardLightBrown)
                 }
             
@@ -28,14 +29,16 @@ struct CardView: View {
                 PatternInputView(
                     requiredPattern: [patternData],
                     isReadOnly: true,
-                    adjustHeight: 43.75
+                    adjustCircleFrame: (deviceType == .pad ? 17.6 : 11),
+                    adjustLineWidth: (deviceType == .pad ? 8 : 5),
+                    adjustHeight: (deviceType == .pad ? 70 : 43.75)
                 )
-                .frame(width: 175)
+                .frame(width: deviceType == .pad ? 280 : 175)
             } else {
                 Image(systemName: "questionmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 75, height: 75)
+                    .frame(width: deviceType == .pad ? 120 : 75, height: deviceType == .pad ? 120 : 75)
                     .foregroundStyle(.chalkboard)
             }
             

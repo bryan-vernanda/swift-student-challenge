@@ -17,17 +17,17 @@ struct PlayButton: View {
             action()
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(.chalkboard, lineWidth: 2)
+                RoundedRectangle(cornerRadius: deviceType == .pad ? 16 : 10)
+                    .strokeBorder(.chalkboard, lineWidth: deviceType == .pad ? 3.2 : 2)
                     .background(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: deviceType == .pad ? 16 : 10)
                             .fill(.buttonBackground)
                     )
                 
                 Text(title)
-                    .font(.chalkboard(deviceType == .pad ? .title2half : .title3))
+                    .font(.chalkboard(deviceType == .pad ? .title1 : .title3))
             }
-            .frame(width: deviceType == .pad ? 233.33 : 200, height: deviceType == .pad ? 70 : 60)
+            .frame(width: deviceType == .pad ? 320 : 200, height: deviceType == .pad ? 96 : 60)
         }
     }
 }

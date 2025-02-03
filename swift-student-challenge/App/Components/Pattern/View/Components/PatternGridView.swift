@@ -17,11 +17,11 @@ extension PatternInputView {
                     let frame = geometry.frame(in: .named("PATTERN_GRID"))
                     Circle()
                         .fill(outerCircleColor)
-                        .frame(width: 11, height: 11)
+                        .frame(width: adjustCircleFrame, height: adjustCircleFrame)
                         .overlay {
                             Circle()
                                 .fill(displayError ? .red: lineColor)
-                                .frame(width: 11, height: 11)
+                                .frame(width: adjustCircleFrame, height: adjustCircleFrame)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .preference(key: DotFrameKey.self, value: frame)
