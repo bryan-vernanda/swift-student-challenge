@@ -81,7 +81,7 @@ struct HighlightHelperView: ViewModifier {
                  }
              
              Rectangle()
-                 .foregroundColor(.clear)
+                 .foregroundStyle(.clear)
                  .frame(
                     width: highlightRect.width + (viewModel.isItemCoverThreeQuarterScreen ? 5 : 20),
                     height: highlightRect.height + (viewModel.isItemCoverThreeQuarterScreen ? 5 : 20)
@@ -109,6 +109,8 @@ struct HighlightHelperView: ViewModifier {
                      .padding(16)
                      .frame(maxWidth: 277, alignment: .leading)
                      .multilineTextAlignment(.leading)
+                     .foregroundStyle(.textBlack)
+                     .background(.chalkboard)
                      .presentationCompactAdaptation(.popover)
                  }
                  .scaleEffect(highlight.scale)

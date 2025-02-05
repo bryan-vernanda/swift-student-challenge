@@ -12,6 +12,7 @@ struct swift_student_challengeApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .preferredColorScheme(.light)
         }
     }
 }
