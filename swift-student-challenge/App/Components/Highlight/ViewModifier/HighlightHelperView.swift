@@ -94,20 +94,16 @@ struct HighlightHelperView: ViewModifier {
                  ) {
                      VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
-                             .font(.body)
+                             .font(UIDevice.current.userInterfaceIdiom == .pad ? .system(size: 27) : .body)
                              .fontWeight(.bold)
-                             .accessibilityElement(children: .ignore)
-                             .accessibilityLabel("\(highlight.title) popover")
                          
                          Text(highlight.detail)
-                             .font(.subheadline)
+                             .font(UIDevice.current.userInterfaceIdiom == .pad ? .system(size: 25) : .subheadline)
                              .lineLimit(nil)
                              .fixedSize(horizontal: false, vertical: true)
-                             .accessibilityElement(children: .ignore)
-                             .accessibilityLabel("\(highlight.detail) popover")
                      }
-                     .padding(16)
-                     .frame(maxWidth: 277, alignment: .leading)
+                     .padding(UIDevice.current.userInterfaceIdiom == .pad ? 32 : 20)
+                     .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 443.2 : 277, alignment: .leading)
                      .multilineTextAlignment(.leading)
                      .foregroundStyle(.textBlack)
                      .background(.chalkboard)
