@@ -35,6 +35,7 @@ struct CardSpinView: View {
         .onChange(of: patternData.isUnlocked) { _, newValue in
             if newValue {
                 isFlipped = true
+                SoundFXManager.playSound(soundFX: SoundFX.flipCard)
             }
         }
     }
@@ -44,11 +45,13 @@ struct CardSpinView: View {
         
         withAnimation(.easeIn) {
             isFlipped.toggle()
+            SoundFXManager.playSound(soundFX: SoundFX.flipCard)
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
             withAnimation(.easeIn) {
                 isFlipped.toggle()
+                SoundFXManager.playSound(soundFX: SoundFX.flipCard)
             }
             onComplete?()
         }

@@ -38,6 +38,7 @@ struct GameplayView: View {
                         Spacer()
                         
                         Button {
+                            SoundFXManager.playSound(soundFX: SoundFX.click)
                             viewModel.isSettingOpen = true
                         } label: {
                             Image(systemName: "gearshape.fill")
@@ -118,6 +119,7 @@ struct GameplayView: View {
                     }
                     .padding(.bottom, viewModel.checkIsIpad() ? 100 : 60)
                     .onAppear {
+                        SoundFXManager.playSound(soundFX: SoundFX.levelUp)
                         HapticManager.notif(type: .success)
                     }
                 }

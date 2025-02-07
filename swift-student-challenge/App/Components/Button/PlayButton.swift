@@ -14,6 +14,8 @@ struct PlayButton: View {
     
     var body: some View {
         Button {
+            SoundFXManager.playSound(soundFX: SoundFX.click)
+            
             action()
         } label: {
             ZStack {

@@ -7,19 +7,19 @@
 
 import Foundation
 
-//enum SoundFX {
-//    case click
-//    case correct
-//    case wrong
-//    
-//    var name: String  {
-//        switch self {
-//            case .click: return "click"
-//            case .correct: return "correct"
-//            case .wrong: return "wrong"
-//        }
-//    }
-//    
+enum SoundFX {
+    case click
+    case flipCard
+    case levelUp
+    
+    var name: String  {
+        switch self {
+            case .click: return "pop-button"
+            case .flipCard: return "flip-card"
+            case .levelUp: return "level-up"
+        }
+    }
+    
 //    var volume: Float {
 //        switch self {
 //            case .click: return 0.1
@@ -27,4 +27,4 @@ import Foundation
 //            case .wrong: return 0.5
 //        }
 //    }
-//}
+}
