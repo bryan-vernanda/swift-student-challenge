@@ -83,7 +83,7 @@ struct HighlightHelperView: ViewModifier {
                  .clipShape(RoundedRectangle(cornerRadius: highlight.cornerRadius, style: highlight.style))
                  .popover(
                     isPresented: $viewModel.showTitle
-                ) {
+                 ) {
                      VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
                              .font(UIDevice.current.userInterfaceIdiom == .pad ? .system(size: 27) : .body)
