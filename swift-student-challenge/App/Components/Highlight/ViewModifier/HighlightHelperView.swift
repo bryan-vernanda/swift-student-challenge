@@ -56,7 +56,6 @@ struct HighlightHelperView: ViewModifier {
          GeometryReader { proxy in
              let highlightRect = proxy[highlight.anchor]
              let safeArea = proxy.safeAreaInsets
-             let screenHeight = UIScreen.main.bounds.height
              
              Rectangle()
                  .fill(.black.opacity(0.5))
@@ -70,28 +69,21 @@ struct HighlightHelperView: ViewModifier {
                  }
                  .ignoresSafeArea()
                  .onChange(of: viewModel.showTitle) { _, newValue in
-                     if newValue {
-                         viewModel.setNewPopUpPosition(highlightRect: highlightRect, screenHeight: screenHeight)
-                     } else {
+                     if !newValue {
                          viewModel.updateCurrentHighlight()
                      }
-                 }
-                 .onAppear {
-                     viewModel.setNewPopUpPosition(highlightRect: highlightRect, screenHeight: screenHeight)
                  }
              
              Rectangle()
                  .foregroundStyle(.clear)
                  .frame(
-                    width: highlightRect.width + (viewModel.isItemCoverThreeQuarterScreen ? 5 : 20),
-                    height: highlightRect.height + (viewModel.isItemCoverThreeQuarterScreen ? 5 : 20)
+                    width: highlightRect.width + 20,
+                    height: highlightRect.height + 20
                  )
                  .clipShape(RoundedRectangle(cornerRadius: highlight.cornerRadius, style: highlight.style))
                  .popover(
-                    isPresented: $viewModel.showTitle,
-                    attachmentAnchor: viewModel.getPopoverAttachmentAnchorPosition(),
-                    arrowEdge: viewModel.getPopoverArrowEdge()
-                 ) {
+                    isPresented: $viewModel.showTitle
+                ) {
                      VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
                              .font(UIDevice.current.userInterfaceIdiom == .pad ? .system(size: 27) : .body)
