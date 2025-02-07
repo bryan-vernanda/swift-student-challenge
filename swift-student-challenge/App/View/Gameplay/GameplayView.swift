@@ -72,7 +72,7 @@ struct GameplayView: View {
                     }
                     .id(viewModel.cardViewID)
                 } else {
-                    CardView(backRotation: 90, returnRotation: 0, isFlipped: false)
+                    CardView()
                         .showCase(
                             order: OnboardingShowcase.patternCard.index,
                             title: OnboardingShowcase.patternCard.title,

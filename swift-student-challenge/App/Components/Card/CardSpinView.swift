@@ -10,23 +10,28 @@ import SwiftUI
 struct CardSpinView: View {
     let patternData: PatternData
     let time: CGFloat
+    
     var onComplete: (() -> Void)?
     
     @State private var isFlipped: Bool = false
     @State private var isAnimated: Bool = false
     @State private var timer: Timer? = nil
+    @State private var flashcardRotation = 0.0
+    @State private var contentRotation = 0.0
     
     var body: some View {
         ZStack {
-            CardView(backRotation: 0, returnRotation: -90, isFlipped: isFlipped, patternData: patternData)
-                .animation(isFlipped ? .linear.delay(0.35) : .linear, value: isFlipped)
-            
-            CardView(backRotation: 90, returnRotation: 0, isFlipped: isFlipped)
-                .animation(isFlipped ? .linear : .linear.delay(0.35), value: isFlipped)
+            if isFlipped {
+                CardView(patternData: patternData)
+            } else {
+                CardView()
+            }
         }
+        .rotation3DEffect(.degrees(contentRotation), axis: (x: 0, y: 1, z: 0))
+        .rotation3DEffect(.degrees(flashcardRotation), axis: (x: 0, y: 1, z: 0))
         .onAppear {
             if !isAnimated {
-                startFlipAnimation()
+                startFlipping()
             }
         }
         .onDisappear {
@@ -34,33 +39,43 @@ struct CardSpinView: View {
         }
         .onChange(of: patternData.isUnlocked) { _, newValue in
             if newValue {
-                isFlipped = true
+                flipCard()
                 SoundFXManager.playSound(soundFX: SoundFX.flipCard)
             }
         }
     }
     
-    private func startFlipAnimation() {
-        isAnimated = true
+    private func flipCard() {
+        let animationTime = 0.5
+        let rotationAmount = isFlipped ? -180.0 : 180.0
         
-        withAnimation(.easeIn) {
+        withAnimation(Animation.linear(duration: animationTime)) {
+            flashcardRotation += rotationAmount
+        }
+        
+        withAnimation(Animation.linear(duration: 0.001).delay(animationTime / 2)) {
+            contentRotation += rotationAmount
             isFlipped.toggle()
             SoundFXManager.playSound(soundFX: SoundFX.flipCard)
         }
+    }
+    
+    private func startFlipping() {
+        isAnimated = true
+        
+        flipCard()
         
         timer = Timer.scheduledTimer(withTimeInterval: time, repeats: false) { _ in
-            withAnimation(.easeIn) {
-                isFlipped.toggle()
-                SoundFXManager.playSound(soundFX: SoundFX.flipCard)
-            }
+            flipCard()
             onComplete?()
         }
     }
 }
 
+
 #Preview {
-    CardSpinView(
-        patternData: PatternData(path: [.three, .two, .four, .eight, .nine]),
-        time: 4.0
-    )
+    @Previewable var patternData: PatternData = PatternData(path: [.three, .two, .four, .eight, .nine])
+    @Previewable let time: CGFloat = 3.0
+    
+    CardSpinView(patternData: patternData, time: time)
 }
