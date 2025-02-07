@@ -18,13 +18,13 @@ enum PatternPosition: CaseIterable {
     var paddingBottom: CGFloat {
         switch self {
             case .one:
-                return -900
+                return -725
             case .two:
-                return -850
+                return -675
             case .three:
-                return -212.5
+                return -125
             case .four:
-                return -162.5
+                return -75
             case .five:
                 return 475
             case .six:
@@ -35,17 +35,17 @@ enum PatternPosition: CaseIterable {
     var paddingLeading: CGFloat {
         switch self {
             case .one:
-                return -400
+                return -450
             case .two:
-                return 400
+                return 450
             case .three:
                 return -615
             case .four:
                 return 615
             case .five:
-                return -575
+                return -600
             case .six:
-                return 575
+                return 600
         }
     }
     
@@ -55,17 +55,6 @@ enum PatternPosition: CaseIterable {
                 return 11.45
             case .two, .three, .six:
                 return -11.45
-        }
-    }
-    
-    var paddingLeadTrail: CGFloat {
-        switch self {
-            case .one, .two:
-                return 120
-            case .three, .four:
-                return 50
-            case .five, .six:
-                return -30
         }
     }
 }

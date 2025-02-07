@@ -16,7 +16,7 @@ struct CreditView: View {
             Color.boardBackground
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing: 0) {
                 Button {
                     SoundFXManager.playSound(soundFX: SoundFX.click)
                     
@@ -30,11 +30,12 @@ struct CreditView: View {
                 
                 Text("CREDITS")
                     .font(deviceType == .pad ? .chalkboard(fontSize: 64): .chalkboard(.XXLTitle))
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 24)
                 
-                VStack(spacing: 16) {
+                VStack(spacing: 8) {
                     Text("Sound Effects:")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 16)
                     
                     ForEach(CreditType.allCases, id: \.self) { creditType in
                         ForEach(Array(zip(creditType.items.indices, zip(creditType.items, creditType.itemDetails))), id: \.0) { index, pair in
@@ -46,12 +47,12 @@ struct CreditView: View {
                                     Text(detail)
                                         .underline()
                                         .foregroundStyle(.blue)
-                                        .padding(.leading, 32)
+                                        .padding(.leading, deviceType == .pad ? 40 : 24)
                                         .multilineTextAlignment(.leading)
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(deviceType == .pad ? .chalkboard(fontSize: 28) : .chalkboard(.callout))
+                            .font(deviceType == .pad ? .chalkboard(fontSize: 30) : .chalkboard(fontSize: 18))
                         }
                     }
                 }

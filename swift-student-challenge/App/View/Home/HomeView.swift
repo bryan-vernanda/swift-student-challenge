@@ -42,7 +42,7 @@ struct HomeView: View {
                             adjustHeight: 50
                         )
                         .frame(width: 200)
-                        .padding(.bottom, index % 2 == 0 ? 100 : 40)
+                        .padding(.bottom, index % 2 == 0 ? 130 : 80)
                         .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
                     }
@@ -73,27 +73,36 @@ struct HomeView: View {
                 .padding(.top, 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
-                VStack(spacing: viewModel.checkIsIpad() ? 25.6 : 16) {
-                    if viewModel.level == 0 {
-                        PlayButton(title: "PLAY") {
-                            viewModel.navigateToGameplayView()
-                        }
-                    } else {
+                if viewModel.level == 0 {
+                    PlayButton(title: "PLAY") {
+                        viewModel.navigateToGameplayView()
+                    }
+                } else {
+                    VStack(spacing: viewModel.checkIsIpad() ? 25.6 : 16) {
                         PlayButton(title: "NEW GAME") {
                             viewModel.resetLevel()
                             viewModel.navigateToGameplayView()
                         }
-                        .padding(.top, viewModel.checkIsIpad() ? 120 : 0)
                         
                         PlayButton(title: "CONTINUE") {
                             viewModel.navigateToGameplayView()
                         }
                     }
-                    
-                    PlayButton(title: "CREDITS") {
-                        viewModel.navigateToCreditView()
-                    }
+                    .padding(.top, viewModel.checkIsIpad() ? 120 : 0)
                 }
+                
+                Button {
+                    SoundFXManager.playSound(soundFX: SoundFX.click)
+                    
+                    viewModel.navigateToCreditView()
+                } label: {
+                    Text("CREDITS")
+                        .underline()
+                        .font(viewModel.checkIsIpad() ? .chalkboard(.title2) : .chalkboard(.body))
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, viewModel.checkIsIpad() ? 60 : 30)
+
             }
             .foregroundStyle(.chalkboard)
             .onAppear {
