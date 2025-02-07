@@ -10,7 +10,7 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     @Published var level: Int
     @Published var highestLevel: Int
-    @Published var isNavigate: Bool
+    @Published var navigationPath: NavigationPath
     @Published var deviceType: UIUserInterfaceIdiom
     @Published var patterns: [PatternData]
     
@@ -20,7 +20,7 @@ class HomeViewModel: ObservableObject {
         user = User()
         level = user.level
         highestLevel = user.highestLevel
-        isNavigate = false
+        navigationPath = NavigationPath()
         deviceType = UIDevice.current.userInterfaceIdiom
         patterns = []
     }
@@ -42,6 +42,10 @@ class HomeViewModel: ObservableObject {
     }
     
     func navigateToGameplayView() {
-        isNavigate = true
+        navigationPath.append(DestinationPath.gameplay)
+    }
+
+    func navigateToCreditView() {
+        navigationPath.append(DestinationPath.credits)
     }
 }

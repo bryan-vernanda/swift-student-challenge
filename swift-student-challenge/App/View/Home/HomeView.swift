@@ -11,7 +11,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $viewModel.navigationPath) {
             ZStack {
                 Color.boardBackground
                     .ignoresSafeArea()
@@ -73,31 +73,39 @@ struct HomeView: View {
                 .padding(.top, 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
-                if viewModel.level == 0 {
-                    PlayButton(title: "PLAY") {
-                        viewModel.navigateToGameplayView()
-                    }
-                } else {
-                    VStack {
+                VStack(spacing: viewModel.checkIsIpad() ? 25.6 : 16) {
+                    if viewModel.level == 0 {
+                        PlayButton(title: "PLAY") {
+                            viewModel.navigateToGameplayView()
+                        }
+                    } else {
                         PlayButton(title: "NEW GAME") {
                             viewModel.resetLevel()
                             viewModel.navigateToGameplayView()
                         }
-                        .padding(.bottom, viewModel.checkIsIpad() ? 25.6 : 16)
+                        .padding(.top, viewModel.checkIsIpad() ? 120 : 0)
                         
                         PlayButton(title: "CONTINUE") {
                             viewModel.navigateToGameplayView()
                         }
                     }
-                    .padding(.top, viewModel.checkIsIpad() ? 100 : 0)
+                    
+                    PlayButton(title: "CREDITS") {
+                        viewModel.navigateToCreditView()
+                    }
                 }
             }
             .foregroundStyle(.chalkboard)
             .onAppear {
                 viewModel.refreshView()
             }
-            .navigationDestination(isPresented: $viewModel.isNavigate) {
-                GameplayView()
+            .navigationDestination(for: DestinationPath.self) { destination in
+                switch destination {
+                    case .gameplay:
+                        GameplayView()
+                    case .credits:
+                        CreditView()
+                }
             }
         }
     }

@@ -28,6 +28,7 @@ struct PlayButton: View {
                 
                 Text(title)
                     .font(.chalkboard(deviceType == .pad ? .title1 : .title3))
+                    .foregroundStyle(.chalkboard)
             }
             .frame(width: deviceType == .pad ? 320 : 200, height: deviceType == .pad ? 96 : 60)
         }
@@ -36,5 +37,4 @@ struct PlayButton: View {
 
 #Preview {
     PlayButton(title: "PLAY", action: {})
-        .foregroundStyle(.chalkboard)
 }
