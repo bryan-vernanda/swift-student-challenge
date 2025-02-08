@@ -19,10 +19,10 @@ struct PlayButton: View {
             action()
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: deviceType == .pad ? 16 : 10)
-                    .strokeBorder(.chalkboard, lineWidth: deviceType == .pad ? 3.2 : 2)
+                RoundedRectangle(cornerRadius: deviceType == .pad ? 15 : 10)
+                    .strokeBorder(.chalkboard, lineWidth: deviceType == .pad ? 3 : 2)
                     .background(
-                        RoundedRectangle(cornerRadius: deviceType == .pad ? 16 : 10)
+                        RoundedRectangle(cornerRadius: deviceType == .pad ? 15 : 10)
                             .fill(.buttonBackground)
                     )
                 
@@ -30,7 +30,7 @@ struct PlayButton: View {
                     .font(.chalkboard(deviceType == .pad ? .title1 : .title3))
                     .foregroundStyle(.chalkboard)
             }
-            .frame(width: deviceType == .pad ? 320 : 200, height: deviceType == .pad ? 96 : 60)
+            .frame(width: deviceType == .pad ? 300 : 200, height: deviceType == .pad ? 90 : 60)
         }
     }
 }

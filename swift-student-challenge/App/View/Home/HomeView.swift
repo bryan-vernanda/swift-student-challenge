@@ -100,7 +100,7 @@ struct HomeView: View {
                         viewModel.navigateToGameplayView()
                     }
                 } else {
-                    VStack(spacing: viewModel.checkIsIpad() ? 25.6 : 16) {
+                    VStack(spacing: viewModel.checkIsIpad() ? 24 : 16) {
                         PlayButton(title: "NEW GAME") {
                             viewModel.resetLevel()
                             viewModel.navigateToGameplayView()

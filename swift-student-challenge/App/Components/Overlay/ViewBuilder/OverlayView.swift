@@ -22,22 +22,22 @@ extension GameplayView {
                 .ignoresSafeArea()
             
             ZStack {
-                RoundedRectangle(cornerRadius: deviceType == .pad ? 48 : 30)
-                    .stroke(lineWidth: deviceType == .pad ? 12.8 : 8)
+                RoundedRectangle(cornerRadius: deviceType == .pad ? 45 : 30)
+                    .stroke(lineWidth: deviceType == .pad ? 12 : 8)
                     .foregroundStyle(.boardDarkBrown)
-                    .frame(width: deviceType == .pad ? 448 : 280, height: CGFloat((deviceType == .pad ? 320 : 200) + buttons.count * (deviceType == .pad ? 80 : 50)))
+                    .frame(width: deviceType == .pad ? 420 : 280, height: CGFloat((deviceType == .pad ? 300 : 200) + buttons.count * (deviceType == .pad ? 75 : 50)))
                     .clipShape(
-                        RoundedRectangle(cornerRadius: deviceType == .pad ? 48 : 30)
-                            .stroke(lineWidth: deviceType == .pad ? 12.8 : 8)
+                        RoundedRectangle(cornerRadius: deviceType == .pad ? 45 : 30)
+                            .stroke(lineWidth: deviceType == .pad ? 12 : 8)
                     )
                     .background(
-                        RoundedRectangle(cornerRadius: deviceType == .pad ? 48 : 30)
+                        RoundedRectangle(cornerRadius: deviceType == .pad ? 45 : 30)
                             .fill(.boardBackground)
                     )
                 
-                VStack(spacing: deviceType == .pad ? 25.6 : 16) {
+                VStack(spacing: deviceType == .pad ? 24 : 16) {
                     Text(title)
-                        .font(deviceType == .pad ? .chalkboard(fontSize: 44) : .chalkboard(.title2))
+                        .font(deviceType == .pad ? .chalkboard(.XLTitle) : .chalkboard(.title2))
                         .padding(.bottom)
                     
                     ForEach(buttons, id: \.id) { button in
@@ -49,7 +49,7 @@ extension GameplayView {
                 }
                 .padding(.bottom)
                 .foregroundStyle(.chalkboard)
-                .frame(width: deviceType == .pad ? 400 : 250)
+                .frame(width: deviceType == .pad ? 375 : 250)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
