@@ -37,6 +37,14 @@ class HomeViewModel: ObservableObject {
         patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: 6)
     }
     
+    func regeneratePattern(at index: Int) {
+        guard index >= 0, index < patterns.count else { return }
+        let newPattern = generatePatterns(numberOfPattern: 1, numberOfLines: 6).first
+        if let newPattern = newPattern {
+            patterns[index] = newPattern
+        }
+    }
+    
     func resetLevel() {
         user.resetLevel()
     }

@@ -19,7 +19,8 @@ struct HomeView: View {
                 if viewModel.checkIsIpad() {
                     ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
                         let position = PatternPosition.allCases[index % PatternPosition.allCases.count]
-                        VStack {
+                        
+                        ZStack {
                             PatternInputView(
                                 requiredPattern: [pattern],
                                 isReadOnly: true,
@@ -29,22 +30,43 @@ struct HomeView: View {
                             )
                             .frame(width: 240)
                             .rotationEffect(.degrees(position.rotationEffect))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            .padding(.bottom, position.paddingBottom)
-                            .padding(.leading, position.paddingLeading)
+
+                            Rectangle()
+                                .frame(width: 150, height: 150)
+                                .foregroundColor(.clear)
+                                .contentShape(Rectangle())
+                                .rotationEffect(.degrees(position.rotationEffect))
+                                .onTapGesture {
+                                    viewModel.regeneratePattern(at: index)
+                                }
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .padding(.bottom, position.paddingBottom)
+                        .padding(.leading, position.paddingLeading)
                     }
                 } else {
                     ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
-                        PatternInputView(
-                            requiredPattern: [pattern],
-                            isReadOnly: true,
-                            adjustHeight: 50
-                        )
-                        .frame(width: 200)
-                        .padding(.bottom, index % 2 == 0 ? 130 : 80)
-                        .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
+                        
+                        ZStack {
+                            PatternInputView(
+                                requiredPattern: [pattern],
+                                isReadOnly: true,
+                                adjustHeight: 50
+                            )
+                            .frame(width: 200)
+                            .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
+                            
+                            Rectangle()
+                                .frame(width: 120, height: 120)
+                                .foregroundColor(.clear)
+                                .contentShape(Rectangle())
+                                .rotationEffect(.degrees(index % 2 == 0 ? 11.15 : -11.15))
+                                .onTapGesture {
+                                    viewModel.regeneratePattern(at: index)
+                                }
+                        }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: index % 2 == 0 ? .bottomLeading : .bottomTrailing)
+                        .padding(.bottom, index % 2 == 0 ? 130 : 80)
                     }
                 }
 
