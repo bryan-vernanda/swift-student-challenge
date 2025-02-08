@@ -110,12 +110,16 @@ class GameplayViewModel: ObservableObject {
         patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: numberOfLines)
     }
     
+    func checkIsUnlocked() -> Bool {
+        return patterns.allSatisfy({ $0.isUnlocked })
+    }
+    
     func refreshLevel() {
         withAnimation(.easeInOut) {
             rotationAngle = 0
         }
         
-        if !patterns.allSatisfy({ $0.isUnlocked }) {
+        if !checkIsUnlocked() {
             loadLevel()
         }
         

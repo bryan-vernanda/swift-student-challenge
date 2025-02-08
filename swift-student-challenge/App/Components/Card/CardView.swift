@@ -9,7 +9,9 @@ import SwiftUI
 
 struct CardView: View {
     let deviceType = UIDevice.current.userInterfaceIdiom
+    
     var patternData: PatternData?
+    var isCorrect: Bool = false
     
     var body: some View {
         ZStack {
@@ -38,7 +40,7 @@ struct CardView: View {
         .overlay(
             RoundedRectangle(cornerRadius: deviceType == .pad ? 48 : 30)
                 .stroke(lineWidth: deviceType == .pad ? 12.8 : 8)
-                .foregroundStyle(.boardLightBrown)
+                .foregroundStyle(isCorrect ? .green : .boardLightBrown)
         )
     }
 }

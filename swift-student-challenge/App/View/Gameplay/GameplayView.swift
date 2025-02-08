@@ -67,7 +67,11 @@ struct GameplayView: View {
                 }
                 
                 if !HighlightStage.allCases.contains(where: { $0.stringValue == highlightViewModel.stage })  {
-                    CardCombinationView(patternData: viewModel.patterns, time: viewModel.time) {
+                    CardCombinationView(
+                        patternData: viewModel.patterns,
+                        time: viewModel.time,
+                        isCorrect: (viewModel.checkIsUnlocked() && !viewModel.patterns.isEmpty)
+                    ) {
                         viewModel.isAnimationRunning = false
                     }
                     .id(viewModel.cardViewID)
@@ -112,7 +116,7 @@ struct GameplayView: View {
                         detail: OnboardingShowcase.patternInput.detail,
                         stage: HighlightStage.onboarding.stringValue
                     )
-                } else if viewModel.patterns.allSatisfy({ $0.isUnlocked }) && !viewModel.patterns.isEmpty {
+                } else if viewModel.checkIsUnlocked() && !viewModel.patterns.isEmpty {
                     PlayButton(title: "NEXT LEVEL") {
                         viewModel.goToNextLevel()
                         viewModel.loadLevel()
@@ -153,7 +157,7 @@ struct GameplayView: View {
                                 viewModel.loadLevel()
                             }
                         }),
-                        OverlayButtonData(label: "Exit", action: {
+                        OverlayButtonData(label: "Exit & Save", action: {
                             if viewModel.patterns.allSatisfy({ $0.isUnlocked }) {
                                 viewModel.goToNextLevel()
                             }

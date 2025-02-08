@@ -11,6 +11,7 @@ struct CardSpinView: View {
     let patternData: PatternData
     let time: CGFloat
     
+    var isCorrect: Bool
     var onComplete: (() -> Void)?
     
     @State private var isFlipped: Bool = false
@@ -22,9 +23,9 @@ struct CardSpinView: View {
     var body: some View {
         ZStack {
             if isFlipped {
-                CardView(patternData: patternData)
+                CardView(patternData: patternData, isCorrect: isCorrect)
             } else {
-                CardView()
+                CardView(isCorrect: isCorrect)
             }
         }
         .rotation3DEffect(.degrees(contentRotation), axis: (x: 0, y: 1, z: 0))
@@ -77,5 +78,5 @@ struct CardSpinView: View {
     @Previewable var patternData: PatternData = PatternData(path: [.three, .two, .four, .eight, .nine])
     @Previewable let time: CGFloat = 3.0
     
-    CardSpinView(patternData: patternData, time: time)
+    CardSpinView(patternData: patternData, time: time, isCorrect: false)
 }
