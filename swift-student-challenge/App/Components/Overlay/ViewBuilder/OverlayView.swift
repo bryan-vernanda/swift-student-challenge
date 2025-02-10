@@ -37,7 +37,7 @@ extension GameplayView {
                 
                 VStack(spacing: deviceType == .pad ? 24 : 16) {
                     Text(title)
-                        .font(deviceType == .pad ? .chalkboard(.XLTitle) : .chalkboard(.title2))
+                        .font(.chalkboard(fontSize: deviceType == .pad ? 45 : 30))
                         .padding(.bottom)
                     
                     ForEach(buttons, id: \.id) { button in

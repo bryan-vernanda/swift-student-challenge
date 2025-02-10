@@ -8,8 +8,8 @@
 import Foundation
 
 enum OnboardingShowcase: CaseIterable {
-    case refresh
     case settings
+    case refresh
     case level
     case patternCard
     case patternInput
@@ -20,10 +20,10 @@ enum OnboardingShowcase: CaseIterable {
     
     var title: String {
         switch self {
-            case .refresh:
-                return "Refresh"
             case .settings:
                 return "Settings"
+            case .refresh:
+                return "Refresh"
             case .level:
                 return "Level"
             case .patternCard:
@@ -35,10 +35,10 @@ enum OnboardingShowcase: CaseIterable {
     
     var detail: String {
         switch self {
-            case .refresh:
-                return "Refresh the pattern if you've forgotten or to restart this level."
             case .settings:
                 return "Settings will allow you to paused, restart, or exit the game."
+            case .refresh:
+                return "Refresh the pattern if you've forgotten or to restart this level."
             case .level:
                 return "Your current game level."
             case .patternCard:

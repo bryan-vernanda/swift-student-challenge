@@ -18,37 +18,37 @@ struct GameplayView: View {
                 .ignoresSafeArea()
             
             VStack {
-                VStack {
+                VStack(spacing: 16) {
                     HStack {
                         Button {
-                            viewModel.refreshLevel()
+                            SoundFXManager.playSound(soundFX: SoundFX.click)
+                            viewModel.isSettingOpen = true
                         } label: {
-                            Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90")
+                            Image(systemName: "pause.circle")
                                 .resizable()
-                                .frame(width: viewModel.checkIsIpad() ? 67.2 : 42, height: viewModel.checkIsIpad() ? 56 : 35)
-                                .rotationEffect(.degrees(viewModel.rotationAngle))
+                                .frame(width: viewModel.checkIsIpad() ? 48 : 30, height: viewModel.checkIsIpad() ? 48 : 30)
                         }
                         .showCase(
-                            order: OnboardingShowcase.refresh.index,
-                            title: OnboardingShowcase.refresh.title,
-                            detail: OnboardingShowcase.refresh.detail,
+                            order: OnboardingShowcase.settings.index,
+                            title: OnboardingShowcase.settings.title,
+                            detail: OnboardingShowcase.settings.detail,
                             stage: HighlightStage.onboarding.stringValue
                         )
                         
                         Spacer()
                         
                         Button {
-                            SoundFXManager.playSound(soundFX: SoundFX.click)
-                            viewModel.isSettingOpen = true
+                            viewModel.refreshLevel()
                         } label: {
-                            Image(systemName: "gearshape.fill")
+                            Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90")
                                 .resizable()
-                                .frame(width: viewModel.checkIsIpad() ? 56 : 35, height: viewModel.checkIsIpad() ? 56 : 35)
+                                .frame(width: viewModel.checkIsIpad() ? 57.6 : 36, height: viewModel.checkIsIpad() ? 48 : 30)
+                                .rotationEffect(.degrees(viewModel.rotationAngle))
                         }
                         .showCase(
-                            order: OnboardingShowcase.settings.index,
-                            title: OnboardingShowcase.settings.title,
-                            detail: OnboardingShowcase.settings.detail,
+                            order: OnboardingShowcase.refresh.index,
+                            title: OnboardingShowcase.refresh.title,
+                            detail: OnboardingShowcase.refresh.detail,
                             stage: HighlightStage.onboarding.stringValue
                         )
                     }
@@ -63,7 +63,7 @@ struct GameplayView: View {
                             detail: OnboardingShowcase.level.detail,
                             stage: HighlightStage.onboarding.stringValue
                         )
-                        .font(.chalkboard(viewModel.checkIsIpad() ? .XLTitle : .title1))
+                        .font(viewModel.checkIsIpad() ? .chalkboard(.XLTitle) : .chalkboard(fontSize: 30))
                 }
                 
                 if !HighlightStage.allCases.contains(where: { $0.stringValue == highlightViewModel.stage })  {
@@ -89,10 +89,10 @@ struct GameplayView: View {
                 
                 if viewModel.patterns.firstIndex(where: { !$0.isUnlocked }) != nil {
                     Text("Pattern:")
-                        .font(.chalkboard(viewModel.checkIsIpad() ? .XLTitle : .title1))
+                        .font(viewModel.checkIsIpad() ? .chalkboard(.XLTitle) : .chalkboard(fontSize: 30))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, viewModel.checkIsIpad() ? 40 : 16)
-                        .padding(.bottom, viewModel.checkIsIpad() ? 16 : 0)
+                        .padding(.bottom, viewModel.checkIsIpad() ? 4 : 0)
                     
                     PatternInputView(
                         requiredPattern: viewModel.patterns,
@@ -116,8 +116,9 @@ struct GameplayView: View {
                         detail: OnboardingShowcase.patternInput.detail,
                         stage: HighlightStage.onboarding.stringValue
                     )
+                    .padding(.bottom, 20)
                 } else if viewModel.checkIsUnlocked() && !viewModel.patterns.isEmpty {
-                    PlayButton(title: "NEXT LEVEL") {
+                    PlayButton(title: "Next Level") {
                         viewModel.goToNextLevel()
                         viewModel.loadLevel()
                     }

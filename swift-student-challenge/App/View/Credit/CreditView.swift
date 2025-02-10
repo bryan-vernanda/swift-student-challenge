@@ -22,20 +22,20 @@ struct CreditView: View {
                     
                     dismiss()
                 } label: {
-                    Image(systemName: "arrow.backward")
+                    Image(systemName: "chevron.left")
                         .resizable()
-                        .frame(width: deviceType == .pad ? 56 : 35, height: deviceType == .pad ? 56 : 35)
+                        .frame(width: deviceType == .pad ? 32 : 20, height: deviceType == .pad ? 48 : 30)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("CREDITS")
-                    .font(deviceType == .pad ? .chalkboard(fontSize: 64): .chalkboard(.XXLTitle))
+                    .font(.chalkboard(fontSize: deviceType == .pad ? 64 : 42.667))
                     .padding(.bottom, 24)
                 
                 VStack(spacing: 8) {
                     Text("Sound Effects:")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 16)
+                        .padding(.bottom, 8)
                     
                     ForEach(CreditType.allCases, id: \.self) { creditType in
                         ForEach(Array(zip(creditType.items.indices, zip(creditType.items, creditType.itemDetails))), id: \.0) { index, pair in
@@ -52,7 +52,7 @@ struct CreditView: View {
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(deviceType == .pad ? .chalkboard(fontSize: 30) : .chalkboard(fontSize: 18))
+                            .font(.chalkboard(fontSize: deviceType == .pad ? 27 : 18))
                         }
                     }
                 }
