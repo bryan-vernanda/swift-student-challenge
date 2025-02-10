@@ -1,6 +1,6 @@
 //
 //  HighlightAnchorKey.swift
-//  hanvest
+//  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 21/01/25.
 //
@@ -14,6 +14,4 @@ struct HighlightAnchorKey: PreferenceKey {
     static func reduce(value: inout [Int: HighlightModel], nextValue: () -> [Int: HighlightModel]) {
         value.merge(nextValue()) { $1 }
     }
-    
-    
 }

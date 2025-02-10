@@ -8,13 +8,43 @@
 import SwiftUI
 
 struct CreditView: View {
-    let deviceType = UIDevice.current.userInterfaceIdiom
+    @StateObject private var viewModel = CreditViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
             Color.boardBackground
                 .ignoresSafeArea()
+            
+            ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
+                let item: PatternPositionProtocol = viewModel.checkIsIpad()
+                ? CreditPatternIpadPosition.allCases[index % CreditPatternIpadPosition.allCases.count]
+                : CreditPatternIphonePosition.allCases[index % CreditPatternIphonePosition.allCases.count]
+                
+                ZStack {
+                    PatternInputView(
+                        requiredPattern: [pattern],
+                        isReadOnly: true,
+                        adjustCircleFrame: item.circleFrame,
+                        adjustLineWidth: item.lineWidth,
+                        adjustHeight: item.height
+                    )
+                    .frame(width: item.frameWidth)
+                    .rotationEffect(.degrees(item.rotationEffect))
+
+                    Rectangle()
+                        .frame(width: item.overlayAdjust, height: item.overlayAdjust)
+                        .foregroundColor(.clear)
+                        .contentShape(Rectangle())
+                        .rotationEffect(.degrees(item.rotationEffect))
+                        .onTapGesture {
+                            viewModel.regeneratePattern(at: index)
+                        }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .padding(.bottom, item.paddingBottom)
+                .padding(.leading, item.paddingLeading)
+            }
             
             VStack(spacing: 0) {
                 Button {
@@ -24,12 +54,12 @@ struct CreditView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .resizable()
-                        .frame(width: deviceType == .pad ? 32 : 20, height: deviceType == .pad ? 48 : 30)
+                        .frame(width: viewModel.checkIsIpad() ? 32 : 20, height: viewModel.checkIsIpad() ? 48 : 30)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("CREDITS")
-                    .font(.chalkboard(fontSize: deviceType == .pad ? 64 : 42.667))
+                    .font(.chalkboard(fontSize: viewModel.checkIsIpad() ? 64 : 42.667))
                     .padding(.bottom, 24)
                 
                 VStack(spacing: 8) {
@@ -47,23 +77,26 @@ struct CreditView: View {
                                     Text(detail)
                                         .underline()
                                         .foregroundStyle(.blue)
-                                        .padding(.leading, deviceType == .pad ? 40 : 24)
+                                        .padding(.leading, viewModel.checkIsIpad() ? 40 : 24)
                                         .multilineTextAlignment(.leading)
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.chalkboard(fontSize: deviceType == .pad ? 27 : 18))
+                            .font(.chalkboard(fontSize: viewModel.checkIsIpad() ? 27 : 18))
                         }
                     }
                 }
-                .font(.chalkboard(deviceType == .pad ? .title1 : .title3))
+                .font(.chalkboard(viewModel.checkIsIpad() ? .title1 : .title3))
             }
             .foregroundStyle(.chalkboard)
             .frame(maxHeight: .infinity, alignment: .top)
-            .padding(.horizontal, deviceType == .pad ? 40 : 16)
+            .padding(.horizontal, viewModel.checkIsIpad() ? 40 : 16)
             .padding(.top, 16)
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            viewModel.refreshPattern()
+        }
     }
 }
 

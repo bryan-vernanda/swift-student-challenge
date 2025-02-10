@@ -1,6 +1,6 @@
 //
-//  ShowCaseRootViewModel.swift
-//  hanvest
+//  HighlightViewModel.swift
+//  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 21/01/25.
 //

@@ -17,32 +17,33 @@ struct HomeView: View {
                     .ignoresSafeArea()
                 
                 ForEach(Array(viewModel.patterns.enumerated()), id: \.1.id) { index, pattern in
-                    let isIpad = viewModel.checkIsIpad()
-                    let position = PatternPosition.allCases[index % PatternPosition.allCases.count]
+                    let item: PatternPositionProtocol = viewModel.checkIsIpad()
+                    ? HomePatternIpadPosition.allCases[index % HomePatternIpadPosition.allCases.count]
+                    : HomePatternIphonePosition.allCases[index % HomePatternIphonePosition.allCases.count]
                     
                     ZStack {
                         PatternInputView(
                             requiredPattern: [pattern],
                             isReadOnly: true,
-                            adjustCircleFrame: isIpad ? 13.2 : 8.8,
-                            adjustLineWidth: isIpad ? 6 : 4,
-                            adjustHeight: isIpad ? 60 : 40
+                            adjustCircleFrame: item.circleFrame,
+                            adjustLineWidth: item.lineWidth,
+                            adjustHeight: item.height
                         )
-                        .frame(width: isIpad ? 240 : 160)
-                        .rotationEffect(.degrees(isIpad ? position.rotationEffect : (index % 2 == 0 ? 11.15 : -11.15)))
+                        .frame(width: item.frameWidth)
+                        .rotationEffect(.degrees(item.rotationEffect))
 
                         Rectangle()
-                            .frame(width: isIpad ? 150 : 100, height: isIpad ? 150 : 100)
+                            .frame(width: item.overlayAdjust, height: item.overlayAdjust)
                             .foregroundColor(.clear)
                             .contentShape(Rectangle())
-                            .rotationEffect(.degrees(isIpad ? position.rotationEffect : (index % 2 == 0 ? 11.15 : -11.15)))
+                            .rotationEffect(.degrees(item.rotationEffect))
                             .onTapGesture {
                                 viewModel.regeneratePattern(at: index)
                             }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .padding(.bottom, isIpad ? position.paddingBottom : (index % 2 == 0 ? -400 : -500))
-                    .padding((isIpad || index % 2 == 0) ? .leading : .trailing, isIpad ? position.paddingLeading : -182.5)
+                    .padding(.bottom, item.paddingBottom)
+                    .padding(.leading, item.paddingLeading)
                 }
 
                 VStack {

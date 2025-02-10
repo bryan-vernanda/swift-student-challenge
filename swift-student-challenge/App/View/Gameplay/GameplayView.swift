@@ -141,7 +141,7 @@ struct GameplayView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifierIf(viewModel.level == 0, HighlightHelperView(viewModel: highlightViewModel))
         .overlay {
             if viewModel.isSettingOpen {
                 overlayView(

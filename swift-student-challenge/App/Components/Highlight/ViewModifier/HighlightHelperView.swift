@@ -1,6 +1,6 @@
 //
-//  HighlightHelper.swift
-//  hanvest
+//  HighlightHelperView.swift
+//  swift-student-challenge
 //
 //  Created by Bryan Vernanda on 21/01/25.
 //
@@ -120,5 +120,17 @@ extension View {
                             .blendMode(.destinationOut)
                     }
             }
+    }
+}
+
+extension View {
+    /// Applies a modifier conditionally.
+    @ViewBuilder
+    func modifierIf<T: ViewModifier>(_ condition: Bool, _ modifier: T) -> some View {
+        if condition {
+            self.modifier(modifier)
+        } else {
+            self
+        }
     }
 }

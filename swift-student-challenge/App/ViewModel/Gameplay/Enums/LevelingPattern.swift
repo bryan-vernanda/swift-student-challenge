@@ -49,9 +49,9 @@ enum LevelingPattern: CaseIterable {
             case .eleven:
                 return 5.0
             case .thirtyOne:
-                return 5.5
+                return 6.5
             case .fiftyOne:
-                return 6.0
+                return 8.0
         }
     }
 }

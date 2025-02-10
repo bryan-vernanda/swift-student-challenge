@@ -12,8 +12,12 @@ struct PlayButton: View {
     let title: String
     let action: () -> Void
     
+    @State private var isDisabled: Bool = false
+    
     var body: some View {
         Button {
+            isDisabled = true
+            
             SoundFXManager.playSound(soundFX: SoundFX.click)
             
             action()
@@ -31,6 +35,10 @@ struct PlayButton: View {
                     .foregroundStyle(.chalkboard)
             }
             .frame(width: deviceType == .pad ? 300 : 200, height: deviceType == .pad ? 90 : 60)
+        }
+        .disabled(isDisabled)
+        .onAppear {
+            isDisabled = false
         }
     }
 }

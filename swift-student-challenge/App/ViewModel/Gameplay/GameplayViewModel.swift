@@ -51,13 +51,20 @@ class GameplayViewModel: ObservableObject {
         user.level = level
     }
     
-    private func adjustLevelTimeAndLines(levelingPattern: LevelingPattern, timeReduction: CGFloat, levelDivideBy: Int, maxNumberOfAddLines: Int) {
+    private func adjustLevelTimeAndLines(levelingPattern: LevelingPattern, timeReduction: CGFloat, levelDivideBy: Int, maxNumberOfAddLines: Int, maxAddTime: CGFloat) {
         let defaultNumberOfLines = 3
-        let maxAddTime = 2.0
         let differentCurrLevelWithPatternLevel = level - levelingPattern.value
         
-        time = levelingPattern.time - min((timeReduction * CGFloat(differentCurrLevelWithPatternLevel)), maxAddTime)
-        numberOfLines = defaultNumberOfLines + min((differentCurrLevelWithPatternLevel / levelDivideBy), maxNumberOfAddLines)
+        let numberOfLinesAdded = min((differentCurrLevelWithPatternLevel / levelDivideBy), maxNumberOfAddLines)
+        let timeAdded = min((timeReduction * CGFloat(differentCurrLevelWithPatternLevel)), maxAddTime)
+        var addDurationCauseByAddLines = 0.0
+        
+        numberOfLines = defaultNumberOfLines + numberOfLinesAdded
+        
+        if numberOfLinesAdded != 0 && level > 10 {
+            addDurationCauseByAddLines = Double(numberOfLinesAdded) * (Double(levelDivideBy) * timeReduction)
+        }
+        time = levelingPattern.time - timeAdded + addDurationCauseByAddLines
     }
     
     private func findLevelingPattern() -> LevelingPattern? {
@@ -81,23 +88,34 @@ class GameplayViewModel: ObservableObject {
             case ...10:
                 adjustLevelTimeAndLines(
                     levelingPattern: levelingPattern,
-                    timeReduction: 0.22,
+                    timeReduction: 0.222,
                     levelDivideBy: 3,
-                    maxNumberOfAddLines: 2
+                    maxNumberOfAddLines: 2,
+                    maxAddTime: 2.0
                 )
-            case 11...50:
+            case 11...30:
                 adjustLevelTimeAndLines(
                     levelingPattern: levelingPattern,
-                    timeReduction: 0.105,
+                    timeReduction: 0.1666,
                     levelDivideBy: 7,
-                    maxNumberOfAddLines: 2
+                    maxNumberOfAddLines: 2,
+                    maxAddTime: 3.0
+                )
+            case 31...50:
+                adjustLevelTimeAndLines(
+                    levelingPattern: levelingPattern,
+                    timeReduction: 0.1111,
+                    levelDivideBy: 10,
+                    maxNumberOfAddLines: 1,
+                    maxAddTime: 2.0
                 )
             default:
                 adjustLevelTimeAndLines(
                     levelingPattern: levelingPattern,
-                    timeReduction: 0.0408,
-                    levelDivideBy: 14,
-                    maxNumberOfAddLines: 3
+                    timeReduction: 0.04166,
+                    levelDivideBy: 25,
+                    maxNumberOfAddLines: 1,
+                    maxAddTime: 2.0
                 )
         }
     }
