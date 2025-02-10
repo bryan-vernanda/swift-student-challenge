@@ -16,7 +16,7 @@ struct CardCombinationView: View {
     var onComplete: (() -> Void)?
     
     var body: some View {
-        VStack(spacing: deviceType == .pad ? 51.2 : 32) {
+        VStack(spacing: patternData.count != 1 ? (deviceType == .pad ? 51.2 : 32) : 0) {
             // Display items in a 2-column grid
             LazyVGrid(
                 columns: [
@@ -29,7 +29,6 @@ struct CardCombinationView: View {
                     CardSpinView(patternData: data, time: time, isCorrect: isCorrect, onComplete: onComplete)
                 }
             }
-            .frame(maxWidth: deviceType == .pad ? 600 : 375)
             
             // Center the last item if the count is odd
             if patternData.count % 2 != 0 {
@@ -38,6 +37,7 @@ struct CardCombinationView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
             }
         }
+        .frame(maxWidth: deviceType == .pad ? 600 : 375)
     }
 }
 
