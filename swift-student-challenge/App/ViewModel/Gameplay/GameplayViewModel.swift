@@ -14,6 +14,7 @@ class GameplayViewModel: ObservableObject {
     @Published var time: CGFloat
     @Published var isAnimationRunning: Bool
     @Published var isSettingOpen: Bool
+    @Published var levelForHighlightCounter: Int
     @Published var rotationAngle: Double
     @Published var deviceType: UIUserInterfaceIdiom
     @Published var cardViewID: UUID
@@ -29,6 +30,7 @@ class GameplayViewModel: ObservableObject {
         time = 0
         isAnimationRunning = true
         isSettingOpen = false
+        levelForHighlightCounter = user.level
         rotationAngle = -45
         deviceType = UIDevice.current.userInterfaceIdiom
         cardViewID = UUID()
@@ -138,6 +140,10 @@ class GameplayViewModel: ObservableObject {
         }
         
         if !checkIsUnlocked() {
+            if levelForHighlightCounter == 0 {
+                levelForHighlightCounter = user.level
+            }
+            
             loadLevel()
         }
         

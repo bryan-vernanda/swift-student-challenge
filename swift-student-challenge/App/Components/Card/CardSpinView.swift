@@ -10,7 +10,9 @@ import SwiftUI
 struct CardSpinView: View {
     let patternData: PatternData
     let time: CGFloat
+    let levelForHighlightCounter: Int
     
+    var user: User = User()
     var isCorrect: Bool
     var onComplete: (() -> Void)?
     
@@ -32,7 +34,13 @@ struct CardSpinView: View {
         .rotation3DEffect(.degrees(flashcardRotation), axis: (x: 0, y: 1, z: 0))
         .onAppear {
             if !isAnimated {
-                startFlipping()
+                if user.level == 1 && levelForHighlightCounter == 0 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        startFlipping()
+                    }
+                } else {
+                    startFlipping()
+                }
             }
         }
         .onDisappear {
@@ -78,5 +86,5 @@ struct CardSpinView: View {
     @Previewable var patternData: PatternData = PatternData(path: [.three, .two, .four, .eight, .nine])
     @Previewable let time: CGFloat = 3.0
     
-    CardSpinView(patternData: patternData, time: time, isCorrect: false)
+    CardSpinView(patternData: patternData, time: time, levelForHighlightCounter: 1, isCorrect: false)
 }

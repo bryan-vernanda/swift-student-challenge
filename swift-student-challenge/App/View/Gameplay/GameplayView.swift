@@ -70,6 +70,7 @@ struct GameplayView: View {
                     CardCombinationView(
                         patternData: viewModel.patterns,
                         time: viewModel.time,
+                        levelForHighlightCounter: viewModel.levelForHighlightCounter,
                         isCorrect: (viewModel.checkIsUnlocked() && !viewModel.patterns.isEmpty)
                     ) {
                         viewModel.isAnimationRunning = false

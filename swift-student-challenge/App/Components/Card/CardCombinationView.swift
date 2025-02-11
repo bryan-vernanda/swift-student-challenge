@@ -11,6 +11,7 @@ struct CardCombinationView: View {
     let deviceType = UIDevice.current.userInterfaceIdiom
     let patternData: [PatternData]
     let time: CGFloat
+    let levelForHighlightCounter: Int
     
     var isCorrect: Bool
     var onComplete: (() -> Void)?
@@ -26,14 +27,14 @@ struct CardCombinationView: View {
                 spacing: deviceType == .pad ? 51.2 : 32
             ) {
                 ForEach(patternData.prefix(patternData.count - (patternData.count % 2))) { data in
-                    CardSpinView(patternData: data, time: time, isCorrect: isCorrect, onComplete: onComplete)
+                    CardSpinView(patternData: data, time: time, levelForHighlightCounter: levelForHighlightCounter, isCorrect: isCorrect, onComplete: onComplete)
                 }
             }
             
             // Center the last item if the count is odd
             if patternData.count % 2 != 0 {
                 let lastItem = patternData[patternData.count - 1]
-                CardSpinView(patternData: lastItem, time: time, isCorrect: isCorrect, onComplete: onComplete)
+                CardSpinView(patternData: lastItem, time: time, levelForHighlightCounter: levelForHighlightCounter, isCorrect: isCorrect, onComplete: onComplete)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
         }
@@ -50,5 +51,5 @@ struct CardCombinationView: View {
     ]
     let time = 4.0
     
-    CardCombinationView(patternData: patternData, time: time, isCorrect: false)
+    CardCombinationView(patternData: patternData, time: time, levelForHighlightCounter: 1, isCorrect: false)
 }
