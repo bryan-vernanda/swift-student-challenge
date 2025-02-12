@@ -126,8 +126,8 @@ class GameplayViewModel: ObservableObject {
         setupLevelingParameter()
         
         isAnimationRunning = true
-        cardViewID = UUID()
         patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: numberOfLines)
+        cardViewID = UUID()
     }
     
     func checkIsUnlocked() -> Bool {
