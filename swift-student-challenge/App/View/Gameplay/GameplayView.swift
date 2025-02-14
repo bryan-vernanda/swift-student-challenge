@@ -154,10 +154,6 @@ struct GameplayView: View {
                         }),
                         OverlayButtonData(label: "Continue", action: {
                             viewModel.isSettingOpen = false
-                            
-                            if !viewModel.patterns.allSatisfy({ $0.isUnlocked }) {
-                                viewModel.loadLevel()
-                            }
                         }),
                         OverlayButtonData(label: "Exit & Save", action: {
                             if viewModel.patterns.allSatisfy({ $0.isUnlocked }) {
