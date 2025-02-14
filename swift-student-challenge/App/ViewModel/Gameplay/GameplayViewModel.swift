@@ -126,7 +126,15 @@ class GameplayViewModel: ObservableObject {
         setupLevelingParameter()
         
         isAnimationRunning = true
-        patterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: numberOfLines)
+        
+        var newPatterns: [PatternData] = []
+        
+        repeat {
+            newPatterns = generatePatterns(numberOfPattern: numberOfPattern, numberOfLines: numberOfLines, previousPatterns: patterns)
+        } while newPatterns.isEmpty
+        
+        patterns = newPatterns
+        
         cardViewID = UUID()
     }
     

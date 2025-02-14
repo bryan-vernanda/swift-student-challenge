@@ -7,7 +7,7 @@
 
 import Foundation
 
-func generatePatterns(numberOfPattern: Int, numberOfLines: Int) -> [PatternData] {
+func generatePatterns(numberOfPattern: Int, numberOfLines: Int, previousPatterns: [PatternData] = []) -> [PatternData] {
     let allSymbols: [PatternSymbol] = [.one, .two, .three, .four, .five, .six, .seven, .eight, .nine]
     
     let adjacencyMap: [PatternSymbol: [PatternSymbol]] = [
@@ -41,7 +41,11 @@ func generatePatterns(numberOfPattern: Int, numberOfLines: Int) -> [PatternData]
         let isDuplicate = generatedPaths.contains(currentPattern)
         let isPalindrome = generatedPaths.contains(currentPattern.reversed())
         
-        if currentPattern.count == numberOfLines && !isDuplicate && !isPalindrome {
+        let hasIndexMatch = previousPatterns.contains { prevPattern in
+            zip(prevPattern.path, currentPattern).contains { $0 == $1 }
+        }
+        
+        if currentPattern.count == numberOfLines && !isDuplicate && !isPalindrome && !hasIndexMatch {
             patterns.append(PatternData(path: currentPattern))
             generatedPaths.insert(currentPattern)
         }

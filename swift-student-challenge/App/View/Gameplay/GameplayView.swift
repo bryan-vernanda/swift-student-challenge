@@ -184,5 +184,5 @@ struct GameplayView: View {
 }
 
 #Preview {
-    GameplayView()
+    HomeView()
 }
