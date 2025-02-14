@@ -84,13 +84,13 @@ struct HighlightHelperView: ViewModifier {
                  .popover(
                     isPresented: $viewModel.showTitle
                  ) {
-                     VStack(alignment: .leading, spacing: 8) {
+                     VStack(alignment: .leading, spacing: 6) {
                          Text(highlight.title)
-                             .font(UIDevice.current.userInterfaceIdiom == .pad ? .system(size: 27) : .body)
+                             .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 26.5 : 16.5263))
                              .fontWeight(.bold)
                          
                          Text(highlight.detail)
-                             .font(UIDevice.current.userInterfaceIdiom == .pad ? .system(size: 25) : .subheadline)
+                             .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 23.25 : 14.4995, .regular))
                              .lineLimit(nil)
                              .fixedSize(horizontal: false, vertical: true)
                      }

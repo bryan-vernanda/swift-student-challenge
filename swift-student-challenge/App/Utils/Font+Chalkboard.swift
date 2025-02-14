@@ -13,7 +13,7 @@ enum ChalkboardFontWeight {
 //    case heavy
 //    case light
 //    case medium
-//    case regular
+    case regular
 //    case semibold
 //    case thin
 //    case ultraLight
@@ -22,6 +22,8 @@ enum ChalkboardFontWeight {
         switch self {
             case .bold:
                 "ChalkboardSE-Bold"
+            case .regular:
+                "ChalkboardSE-Regular"
         }
     }
 }
