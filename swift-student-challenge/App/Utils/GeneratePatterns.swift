@@ -25,7 +25,7 @@ func generatePatterns(numberOfPattern: Int, numberOfLines: Int, previousPatterns
     var patterns: [PatternData] = []
     var generatedPaths: Set<[PatternSymbol]> = []
 
-    while patterns.count < numberOfPattern { // prev = 2, numberofpattern = 3
+    while patterns.count < numberOfPattern {
         var currentPattern: [PatternSymbol] = []
         var currentSymbol = allSymbols.randomElement()!
         currentPattern.append(currentSymbol)
