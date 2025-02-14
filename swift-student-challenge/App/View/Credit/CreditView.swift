@@ -32,14 +32,15 @@ struct CreditView: View {
                     .frame(width: item.frameWidth)
                     .rotationEffect(.degrees(item.rotationEffect))
 
-                    Rectangle()
-                        .frame(width: item.overlayAdjust, height: item.overlayAdjust)
-                        .foregroundColor(.clear)
-                        .contentShape(Rectangle())
-                        .rotationEffect(.degrees(item.rotationEffect))
-                        .onTapGesture {
-                            viewModel.regeneratePattern(at: index)
-                        }
+                    Button {
+                        viewModel.regeneratePattern(at: index)
+                    } label: {
+                        Rectangle()
+                            .frame(width: item.overlayAdjust, height: item.overlayAdjust)
+                            .foregroundColor(.clear)
+                            .contentShape(Rectangle())
+                            .rotationEffect(.degrees(item.rotationEffect))
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .padding(.bottom, item.paddingBottom)
