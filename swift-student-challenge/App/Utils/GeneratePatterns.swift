@@ -25,7 +25,7 @@ func generatePatterns(numberOfPattern: Int, numberOfLines: Int, previousPatterns
     var patterns: [PatternData] = []
     var generatedPaths: Set<[PatternSymbol]> = []
 
-    while patterns.count < numberOfPattern {
+    while patterns.count < numberOfPattern { // prev = 2, numberofpattern = 3
         var currentPattern: [PatternSymbol] = []
         var currentSymbol = allSymbols.randomElement()!
         currentPattern.append(currentSymbol)
@@ -40,9 +40,10 @@ func generatePatterns(numberOfPattern: Int, numberOfLines: Int, previousPatterns
         
         let isDuplicate = generatedPaths.contains(currentPattern)
         let isPalindrome = generatedPaths.contains(currentPattern.reversed())
+        var hasIndexMatch = false
         
-        let hasIndexMatch = previousPatterns.contains { prevPattern in
-            zip(prevPattern.path, currentPattern).contains { $0 == $1 }
+        if previousPatterns.count > patterns.count {
+            hasIndexMatch = previousPatterns[patterns.count].path == currentPattern || previousPatterns[patterns.count].path == currentPattern.reversed()
         }
         
         if currentPattern.count == numberOfLines && !isDuplicate && !isPalindrome && !hasIndexMatch {
