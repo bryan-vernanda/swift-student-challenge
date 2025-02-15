@@ -60,7 +60,7 @@ struct CreditView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("CREDITS")
-                    .font(.chalkboard(fontSize: viewModel.checkIsIpad() ? 64 : 42.667))
+                    .font(.chalkboard(fontSize: viewModel.checkIsIpad() ? 64.5 : 43))
                     .padding(.bottom, 24)
                 
                 VStack(spacing: 8) {

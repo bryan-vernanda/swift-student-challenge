@@ -86,16 +86,16 @@ struct HighlightHelperView: ViewModifier {
                  ) {
                      VStack(alignment: .leading, spacing: 6) {
                          Text(highlight.title)
-                             .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 26.5 : 16.5263))
+                             .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 27.2 : 17))
                              .fontWeight(.bold)
                          
                          Text(highlight.detail)
-                             .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 23.25 : 14.4995, .regular))
+                             .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 22.4 : 14, .regular))
                              .lineLimit(nil)
                              .fixedSize(horizontal: false, vertical: true)
                      }
-                     .padding(UIDevice.current.userInterfaceIdiom == .pad ? 32 : 20)
-                     .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 443.2 : 277, alignment: .leading)
+                     .padding(UIDevice.current.userInterfaceIdiom == .pad ? 38.4 : 24)
+                     .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 440 : 275, alignment: .leading)
                      .multilineTextAlignment(.leading)
                      .foregroundStyle(.textBlack)
                      .background(.chalkboard)

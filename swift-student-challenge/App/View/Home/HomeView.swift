@@ -51,14 +51,14 @@ struct HomeView: View {
                     HStack {
                         VStack {
                             Text("PATTERN")
-                                .padding(.leading, viewModel.checkIsIpad() ? -105 : -60)
+                                .padding(.leading, viewModel.checkIsIpad() ? -110 : -60)
                             
                             Text("MIND")
-                                .padding(.leading, viewModel.checkIsIpad() ? 190 : 145)
+                                .padding(.leading, viewModel.checkIsIpad() ? 195 : 145)
                         }
                     }
                     .padding(.bottom)
-                    .font(.chalkboard(fontSize: viewModel.checkIsIpad() ? 64 : 42.667))
+                    .font(.chalkboard(fontSize: viewModel.checkIsIpad() ? 64.5 : 43))
                     .rotationEffect(.degrees(-11.15))
                     
                     HStack {
