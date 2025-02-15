@@ -84,7 +84,7 @@ struct HighlightHelperView: ViewModifier {
                  .popover(
                     isPresented: $viewModel.showTitle
                  ) {
-                     VStack(alignment: .leading, spacing: 6) {
+                     VStack(alignment: .leading, spacing: UIDevice.current.userInterfaceIdiom == .pad ? 9.6 : 6) {
                          Text(highlight.title)
                              .font(.chalkboard(fontSize: UIDevice.current.userInterfaceIdiom == .pad ? 27.2 : 17))
                              .fontWeight(.bold)
