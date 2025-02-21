@@ -13,9 +13,9 @@ extension View {
         order: Int,
         title: String,
         detail: String,
-        cornerRadius: CGFloat = 10,
+        cornerRadius: CGFloat = 10.0,
         style: RoundedCornerStyle = .continuous,
-        scale: CGFloat = 1,
+        scale: CGFloat = 1.0,
         stage: String
     ) -> some View {
         self
